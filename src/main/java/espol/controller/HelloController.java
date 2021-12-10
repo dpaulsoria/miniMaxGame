@@ -1,23 +1,15 @@
 package espol.controller;
 
-import espol.model.game.Pair;
-import javafx.collections.FXCollections;
+import espol.model.game.Game;
+import espol.startGame.App;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -26,89 +18,67 @@ public class HelloController implements Initializable {
     @FXML
     private Button startButton;
     @FXML
-    private Button iwtbButton;
-    @FXML
-    private ComboBox<Character> cbx;
-    @FXML
     private VBox root;
     @FXML
-    private GridPane grid;
+    private RadioButton xRadioButton;
     @FXML
-    private Button clearButton;
+    private RadioButton oRadioButton;
+    @FXML
+    private RadioButton meRadioButton;
+    @FXML
+    private RadioButton botRadioButton;
 
-    private Character currentChar = 'n'; // Indic null
-    private String backgroundStyle = "-fx-background-color: #128299;";
-    private String borderStyle = "-fx-border-color: black; -fx-border-width: 2px;";
-    private ArrayList<Pair> selected = new ArrayList<>();
+    private Character playerMark = 'n';
+    private boolean playerBegins;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setGridStyles();
         titleLabel.setText("MiniMax Game!");
-        ArrayList<Character> options = new ArrayList<>();
-        options.add('X'); options.add('O');
-        cbx.setItems(FXCollections.observableList(options));
     }
-
-    private void setGridStyles() {
-        grid.setMinSize(340, 340);
-        grid.setStyle(borderStyle);
-    }
-
     @FXML
     protected void startGame() {
-        if (currentChar.equals('n')) {
-            alert("Elegir X/O", "WARNING");
-            return;
+        if (!validateGame()) return;
+        System.out.println("Begins: " + (playerBegins ? "Player":"Bot"));
+        System.out.println("Player Mark: " + playerMark);
+        Game game = new Game(playerMark, playerBegins);
+        try {
+            FXMLLoader fxml = App.loadFXMLLoad("board");
+            App.setRoot(fxml);
+            BoardController bc = fxml.getController();
+            bc.initialize(game);
+        } catch (IOException e) {
+            System.out.println(e.toString());
         }
-        for(int x = 0; x<3; x++) {
-            for(int y = 0; y<3; y++) {
-                grid.add(getCell(x, y), y, x);
-            }
-        }
     }
-    private StackPane getBotChar() {
-        
-        return null;
+    private boolean validateGame() {
+        return (!meRadioButton.isSelected() || !botRadioButton.isSelected() || !xRadioButton.isSelected() || !oRadioButton.isSelected());
     }
-
     @FXML
-    protected void setChar() { currentChar = cbx.getValue(); }
-
-    private StackPane getCell(Integer x, Integer y) {
-        StackPane cell = new StackPane();
-        cell.setOnMouseClicked(event -> {
-            if (currentChar.equals('n')) alert("Choose X/O", "WARNING");
-            else {
-                Pair currentPosition = new Pair(x, y);
-                if (!selected.contains(currentPosition)) {
-                    selected.add(currentPosition);
-                    try {
-                        FileInputStream in = new FileInputStream("src/img/" + currentChar + ".png");
-                        Image img = new Image(in);
-                        ImageView imageView = getImgView();
-                        imageView.setImage(img);
-                        cell.getChildren().add(imageView);
-                    } catch (IOException e) {
-                        System.out.println(e.toString());
-                    }
-                }
-            }
-        });
-        cell.setStyle(borderStyle);
-        return cell;
+    protected void setMeRadioButton() {
+        if (!meRadioButton.isSelected()) { meRadioButton.setSelected(true); botRadioButton.setSelected(false); }
+        else if (botRadioButton.isSelected()) { botRadioButton.setSelected(false); meRadioButton.setSelected(true); }
+        setPlayerBegins(true);
     }
-
-    private ImageView getImgView() {
-        ImageView imgView = new ImageView();
-        imgView.setFitHeight(100);
-        imgView.setFitWidth(100);
-        return imgView;
-    }
-
     @FXML
-    public void clearTable() {}
-
+    protected void setBotRadioButton() {
+        if (!botRadioButton.isSelected()) { botRadioButton.setSelected(true); meRadioButton.setSelected(false); }
+        else if (meRadioButton.isSelected()) { meRadioButton.setSelected(false); botRadioButton.setSelected(true); }
+        setPlayerBegins(false);
+    }
+    @FXML
+    protected void setORadioButton() {
+        if (!oRadioButton.isSelected()) { oRadioButton.setSelected(true); xRadioButton.setSelected(false); }
+        else if (xRadioButton.isSelected()) { xRadioButton.setSelected(false); oRadioButton.setSelected(true); }
+        setPlayerMark('O');
+    }
+    @FXML
+    protected void setXRadioButton() {
+        if (!xRadioButton.isSelected()) { xRadioButton.setSelected(true); oRadioButton.setSelected(false); }
+        else if (oRadioButton.isSelected()) { oRadioButton.setSelected(false); xRadioButton.setSelected(true); }
+        setPlayerMark('X');
+    }
+    private void setPlayerMark(Character opt) { this.playerMark = opt; }
+    private void setPlayerBegins(boolean opt) { this.playerBegins = opt; }
     private void alert(String msg, String mode) {
         Alert a;
         switch (mode) {
@@ -118,7 +88,6 @@ public class HelloController implements Initializable {
             case "CONFIRMATION": a = new Alert(Alert.AlertType.CONFIRMATION, msg); break;
             default: a = new Alert(Alert.AlertType.NONE, msg); break;
         }
-
         a.show();
     }
 }

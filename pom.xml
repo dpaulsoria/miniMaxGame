@@ -60,10 +60,22 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>espol.minimax/espol.minimax.HelloApplication</mainClass>
+                            <mainClass>espol.minimax/espol.startGame.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -3,8 +3,8 @@ module espol.minimax {
     requires javafx.fxml;
 
 
-    opens espol.minimax to javafx.fxml;
-    exports espol.minimax;
+    opens espol.startGame to javafx.fxml;
+    exports espol.startGame;
     exports espol.controller;
     opens espol.controller to javafx.fxml;
 }
