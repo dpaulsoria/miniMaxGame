@@ -5,8 +5,10 @@ import espol.startGame.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,7 +47,7 @@ public class HelloController implements Initializable {
             FXMLLoader fxml = App.loadFXMLLoad("board");
             App.setRoot(fxml);
             BoardController bc = fxml.getController();
-            bc.initialize(game);
+            bc.setGame(game);
         } catch (IOException e) {
             System.out.println(e.toString());
         }

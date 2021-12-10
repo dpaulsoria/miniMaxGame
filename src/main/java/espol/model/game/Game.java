@@ -49,9 +49,7 @@ public class Game {
         return board;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
+    public void setBoard(Board board) { this.board = board; }
 
     public BinaryTree<Character> getMiniMax() {
         return miniMax;

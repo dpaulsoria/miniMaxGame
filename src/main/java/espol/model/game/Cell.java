@@ -1,6 +1,12 @@
 package espol.model.game;
 
+import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Cell {
     private Character c;
@@ -19,6 +25,18 @@ public class Cell {
         imgView.setFitHeight(100);
         imgView.setFitWidth(100);
         return imgView;
+    }
+    public void setCellEvents(StackPane sp) {
+        sp.setOnMouseClicked(e -> {
+            if (!this.isSelected()) {
+                ImageView imgView = this.getImgView();
+                try {
+                    imgView.setImage(new Image(new FileInputStream("src/img/" + c + ".png")));
+                } catch (FileNotFoundException ex) {
+                    System.out.println(ex.toString());;
+                }
+            }
+        });
     }
 
     public Character getC() { return c; }
