@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
    <right>
       <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
          <children>
@@ -26,6 +26,7 @@
                   <Label fx:id="markLabel" />
                </children>
             </StackPane>
+            <Button mnemonicParsing="false" onAction="#clearTable" text="Button" />
          </children>
       </VBox>
    </right>

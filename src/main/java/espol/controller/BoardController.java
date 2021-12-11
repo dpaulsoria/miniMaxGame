@@ -40,6 +40,10 @@ public class BoardController implements Initializable{
         anchorPane.getChildren().add(grid);
     }
     @FXML
+    protected void newGame() {
+        
+    }
+    @FXML
     protected void clearTable() { board.clear(); }
     @FXML
     protected void giveUp() {

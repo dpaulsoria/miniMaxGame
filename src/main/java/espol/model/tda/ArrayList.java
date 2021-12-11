@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class ArrayList<E> implements List<E> {
 
     // arreglo de elementos
-    private int capacity = 5;
+    private int capacity = 10;
     private E[] elements = null;
     private int effectiveSize = 0;
 
