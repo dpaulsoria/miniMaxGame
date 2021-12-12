@@ -5,12 +5,10 @@ import espol.startGame.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,7 +55,7 @@ public class HelloController implements Initializable {
         Game game = new Game(playerMark, playerBegins);
         try {
             FXMLLoader fxml = App.loadFXMLLoad("board");
-            App.initGame(fxml, 500, 400);
+            App.switchWindowGame(fxml, 500, 400);
             BoardController bc = fxml.getController();
             bc.setGame(game);
         } catch (IOException e) {

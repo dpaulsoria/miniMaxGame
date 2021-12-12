@@ -26,11 +26,12 @@ public class App extends Application {
         stage.setTitle("MiniMax Game!");
         stage.getIcons().add(new Image(new FileInputStream("src/img/icon.png")));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
     //public static void setRoot(String fxml) throws IOException { scene.setRoot(loadFXML(fxml)); }
     //public static void setRoot(FXMLLoader fxml) throws IOException { scene.setRoot(fxml.load()); }
-    public static void initGame(FXMLLoader fxml, double height, double width) throws IOException {
+    public static void switchWindowGame(FXMLLoader fxml, double height, double width) throws IOException {
         scene = new Scene(fxml.load(), height, width);
         stage.setScene(scene);
         stage.setResizable(false);

@@ -3,7 +3,6 @@ package espol.controller;
 import espol.model.game.Board;
 import espol.model.game.Game;
 import espol.startGame.App;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +50,7 @@ public class BoardController implements Initializable{
     protected void giveUp() {
         try {
             FXMLLoader fxml = App.loadFXMLLoad("hello-view");
-            App.initGame(fxml, App.height, App.width);
+            App.switchWindowGame(fxml, App.height, App.width);
         } catch (IOException e) {
             System.out.println(e.toString());
         }
