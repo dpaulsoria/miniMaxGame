@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +24,8 @@ public class HelloController implements Initializable {
     private Button startButton;
     @FXML
     private VBox root;
+    @FXML
+    private ImageView img;
     @FXML
     private RadioButton xRadioButton;
     @FXML
@@ -35,6 +40,11 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            img.setImage(new Image(new FileInputStream("src/img/tic-tac-toe.png")));
+        } catch(Exception e) {
+            System.out.printf(e.toString());
+        }
         playerMark = 'n';
         titleLabel.setText("MiniMax Game!");
         playerBegins = false;
