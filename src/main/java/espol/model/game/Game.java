@@ -23,6 +23,7 @@ public class Game {
     }
     public void botTurn(Pair position) {
         Cell c = new Cell(new Pair(position.x, position.y), true);
+        c.setC(bot);
         c.setImage((player.equals('X') ? board.getO():board.getX()));
         board.getGrid().add(c, position.x, position.y);
     }
