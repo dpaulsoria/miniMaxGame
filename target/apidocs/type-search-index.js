@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"espol.startGame","l":"App"},{"p":"espol.controller","l":"BoardController"},{"p":"espol.controller","l":"HelloController"}];updateSearchResults();
