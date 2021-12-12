@@ -37,22 +37,21 @@ public class Board {
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
                 cell.setImage(EMPTY);
+                tmp.addLast(cell);
                 cell.setOnMouseClicked(e -> {
                     if (!cell.isSelected()) {
                         cell.setSelected(true);
                         cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
                         for(Map.Entry<Integer, ArrayList<Cell>> par: mapa.entrySet()){
-                            if(par.getKey()==cell.getPosition().x){
-                                par.getValue().set(cell.getPosition().y, cell);
-                                System.out.println(mapa);
-                            }
+                            for(Cell c:par.getValue()){
+                                    System.out.println(c);
+                                }
                         }
-                     }
+                        System.out.println("////////////////////////////////////////////");
+                     }//eliminar for, solo sirve de comprobacion
                 });
-
                 grid.add(cell, j, i);
-                tmp.addLast(cell);
             }
             mapa.put(i,tmp);
         }
@@ -105,4 +104,13 @@ public class Board {
     public double getSIZE() {
         return SIZE;
     }
+
+    public TreeMap<Integer, ArrayList<Cell>> getMapa() {
+        return mapa;
+    }
+
+    public void setMapa(TreeMap<Integer, ArrayList<Cell>> mapa) {
+        this.mapa = mapa;
+    }
+    
 }

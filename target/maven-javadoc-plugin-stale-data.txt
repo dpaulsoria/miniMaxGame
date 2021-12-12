@@ -1,0 +1,49 @@
+@options
+@packages
+@argfile
+--module-path
+'C:/Users/rdavi/.m2/repository/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar;C:/Users/rdavi/.m2/repository/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar;C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/target/MiniMax-1.0-SNAPSHOT.jar;C:/Users/rdavi/.m2/repository/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2.jar;C:/Users/rdavi/.m2/repository/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2.jar'
+--patch-module
+espol.minimax='C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/src/main/java;C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/target/generated-sources/annotations'
+-encoding
+'UTF-8'
+-protected
+--module-source-path
+'C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/target/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2021. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'MiniMax 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'MiniMax 1.0-SNAPSHOT API'
+espol.controller
+espol.startGame
+'C:/Users/rdavi/OneDrive/Escritorio/Proyecto ED2/miniMaxGame/src/main/java/module-info.java'
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\allclasses-index.html = 1639343747000
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\allpackages-index.html = 1639343747008
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\constant-values.html = 1639343746695
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\element-list = 1639343746391
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\help-doc.html = 1639343747144
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\index-all.html = 1639343747127
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\index.html = 1639343747132
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\jquery-ui.overrides.css = 1639343747521
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\member-search-index.js = 1639343747040
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\module-search-index.js = 1639343747012
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\overview-tree.html = 1639343746873
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\package-search-index.js = 1639343747015
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\script.js = 1639343747180
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\search.js = 1639343747216
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\stylesheet.css = 1639343747169
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\tag-search-index.js = 1639343747043
+C:\Users\rdavi\OneDrive\Escritorio\Proyecto ED2\miniMaxGame\target\apidocs\type-search-index.js = 1639343747021
