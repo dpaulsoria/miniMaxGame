@@ -35,7 +35,9 @@ public class Board {
                         cell.setSelected(true);
                         cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
+                        Game.nextTurn();
                      }
+
                 });
                 cell.setStyle(borderStyles);
 
