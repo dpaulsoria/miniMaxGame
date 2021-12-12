@@ -1,6 +1,8 @@
 package espol.model.game;
 
 import espol.model.tda.ArrayList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -18,6 +20,8 @@ public class Board {
     private Image O;
     private Image N;
     private final Character EMPTY = 'T';
+    private final double SIZE = 360;
+    private final double CELL_SIZE = SIZE/3;
 
     public Board(Character p) {
         setBasicsOptions();
@@ -26,8 +30,8 @@ public class Board {
         grid = new GridPane();
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
-                Cell cell = new Cell(EMPTY, new Pair(i, j), false);
-                //cell.setImage(N);
+                Cell cell = new Cell(new Pair(i, j), false);
+                cell.setImage(N);
                 cell.setOnMouseClicked(e -> {
                     if (!cell.isSelected()) {
                         cell.setSelected(true);
@@ -41,15 +45,18 @@ public class Board {
                 //grid.getChildren().remove(j, i);
             }
         }
+        grid.setAlignment(Pos.CENTER);
         grid.setStyle(borderStyles);
-        grid.setPrefSize(330,330);
+        grid.setPrefSize(SIZE,SIZE);
+        grid.setMinSize(SIZE,SIZE);
+        grid.setMaxSize(SIZE,SIZE);
     }
 
     private void setBasicsOptions() {
         try {
             X = new Image(new FileInputStream("src/img/X.png"));
             O = new Image(new FileInputStream("src/img/O.png"));
-            N = new Image(new FileInputStream("src/img/negro.png"));
+            N = new Image(new FileInputStream("src/img/circle.png"));
         } catch(Exception e) {
             System.out.println(e.toString());
         }

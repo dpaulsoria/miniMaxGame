@@ -11,23 +11,16 @@ public class Cell extends ImageView {
     private Pair position;
     private boolean selected;
     private Image charImage;
+    public static final Character EMPTY = 'n';
+    private final double SIZE = 120 - 10;
 
-    public Cell(Character option, Pair position, boolean selected) {
-        setImageChar(option);
+    public Cell(Pair position, boolean selected) {
+        c = EMPTY;
         setImage(charImage);
-        this.c = option;
         this.position = position;
         this.selected = selected;
-        this.setFitHeight(110);
-        this.setFitWidth(110);
-    }
-
-    private void setImageChar(Character option) {
-        try {
-            charImage = new Image(new FileInputStream("src/img/" + option + ".png"));
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        this.setFitHeight(SIZE);
+        this.setFitWidth(SIZE);
     }
 
     @Override

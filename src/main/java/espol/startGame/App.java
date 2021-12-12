@@ -24,7 +24,7 @@ public class App extends Application {
         scene = new Scene(fxmlLoader.load(), height, width);
         stage = stg;
         stage.setTitle("MiniMax Game!");
-        stage.getIcons().add(new Image(new FileInputStream("src/img/icon.png")));
+        stage.getIcons().add(new Image(new FileInputStream("src/img/video-games.png")));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
