@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Board {
@@ -41,6 +42,12 @@ public class Board {
                         cell.setSelected(true);
                         cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
+                        for(Map.Entry<Integer, ArrayList<Cell>> par: mapa.entrySet()){
+                            if(par.getKey()==cell.getPosition().x){
+                                par.getValue().set(cell.getPosition().y, cell);
+                                System.out.println(mapa);
+                            }
+                        }
                      }
                 });
 
