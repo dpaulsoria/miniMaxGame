@@ -50,7 +50,8 @@ public class BoardController implements Initializable{
     @FXML
     protected void giveUp() {
         try {
-            App.setRoot("hello-view");
+            FXMLLoader fxml = App.loadFXMLLoad("hello-view");
+            App.initGame(fxml, App.height, App.width);
         } catch (IOException e) {
             System.out.println(e.toString());
         }

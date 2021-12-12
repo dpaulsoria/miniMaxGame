@@ -15,27 +15,24 @@ import java.io.IOException;
 public class App extends Application {
     private static Scene scene;
     private static Stage stage;
+    public static final double height = 280;
+    public static final double width = 410;
 
     @Override
     public void start(Stage stg) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("hello-view.fxml"));
-        scene = new Scene(fxmlLoader.load(), 280, 410);
+        scene = new Scene(fxmlLoader.load(), height, width);
         stage = stg;
-        stage.setTitle("Welcome!");
+        stage.setTitle("MiniMax Game!");
         stage.getIcons().add(new Image(new FileInputStream("src/img/icon.png")));
         stage.setScene(scene);
         stage.show();
     }
     //public static void setRoot(String fxml) throws IOException { scene.setRoot(loadFXML(fxml)); }
     //public static void setRoot(FXMLLoader fxml) throws IOException { scene.setRoot(fxml.load()); }
-    public static void setRoot(String fxml) throws IOException {
-
-        scene.setRoot(loadFXML(fxml));
-    }
-    public static void setRoot(FXMLLoader fxml) throws IOException {
-        scene = new Scene(fxml.load(), 500, 400);
+    public static void initGame(FXMLLoader fxml, double height, double width) throws IOException {
+        scene = new Scene(fxml.load(), height, width);
         stage.setScene(scene);
-        stage.setTitle("Let's Game!");
         stage.setResizable(false);
         stage.show();
     }

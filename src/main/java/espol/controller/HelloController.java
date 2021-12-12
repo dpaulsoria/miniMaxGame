@@ -41,12 +41,12 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            img.setImage(new Image(new FileInputStream("src/img/tic-tac-toe.png")));
+            img.setImage(new Image(new FileInputStream("src/img/tic-tac-toe-2.png")));
         } catch(Exception e) {
             System.out.printf(e.toString());
         }
         playerMark = 'n';
-        titleLabel.setText("MiniMax Game!");
+        titleLabel.setText("Choose");
         playerBegins = false;
     }
     @FXML
@@ -57,7 +57,7 @@ public class HelloController implements Initializable {
         Game game = new Game(playerMark, playerBegins);
         try {
             FXMLLoader fxml = App.loadFXMLLoad("board");
-            App.setRoot(fxml);
+            App.initGame(fxml, 500, 400);
             BoardController bc = fxml.getController();
             bc.setGame(game);
         } catch (IOException e) {
