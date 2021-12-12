@@ -22,7 +22,6 @@ public class Cell extends ImageView {
         this.setFitHeight(SIZE);
         this.setFitWidth(SIZE);
     }
-
     @Override
     public String toString() { return position.toString() + ": " + c + " - " + selected; }
     public Character getC() { return c; }

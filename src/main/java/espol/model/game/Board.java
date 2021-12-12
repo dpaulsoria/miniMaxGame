@@ -20,13 +20,12 @@ public class Board {
     private Image O;
     private Image EMPTY;
     private final double SIZE = 360;
-    private final double CELL_SIZE = SIZE/3;
 
-    public Board(Character p) {
+    public Board(Character p, GridPane g) {
         setBasicsOptions();
         player = p;
         bot = (player.equals('X') ? 'O':'X');
-        grid = new GridPane();
+        grid = g;
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
@@ -35,10 +34,9 @@ public class Board {
                     if (!cell.isSelected()) {
                         cell.setSelected(true);
                         cell.setImage((player.equals('X') ? X:O));
-                        //else if (cell.getC().equals('T'))
                      }
                 });
-                cell.setStyle(borderStyles + "-fx-background-color: black;");
+                cell.setStyle(borderStyles);
 
                 grid.add(cell, j, i);
                 //grid.getChildren().remove(j, i);
@@ -46,9 +44,9 @@ public class Board {
         }
         grid.setAlignment(Pos.CENTER);
         grid.setStyle(borderStyles);
-        grid.setPrefSize(SIZE,SIZE);
-        grid.setMinSize(SIZE,SIZE);
-        grid.setMaxSize(SIZE,SIZE);
+        grid.setPrefSize(SIZE-10,SIZE);
+        grid.setMinSize(SIZE-10,SIZE);
+        grid.setMaxSize(SIZE-10,SIZE);
     }
 
     private void setBasicsOptions() {

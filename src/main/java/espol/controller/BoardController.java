@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ public class BoardController implements Initializable{
     private Button giveUpButton;
     @FXML
     private BorderPane root;
+    @FXML
     private GridPane grid;
     private Game gg;
     private Board board;
@@ -33,15 +35,17 @@ public class BoardController implements Initializable{
         gg = g;
         player = gg.getPlayer();
         markLabel.setText(String.valueOf(player));
-        board = new Board(player);
-        grid = board.getGrid();
+        board = new Board(player, grid);
+        //grid = board.getGrid();
+        grid.setAlignment(Pos.CENTER);
+        //grid.set
         root.setCenter(grid);
     }
     @FXML
     protected void newGame() {
         ObservableList<Node> list = grid.getChildren();
         list.forEach(e -> {
-            System.out.println(e.getClass());
+            System.out.println(e.getLayoutX() + ", " + e.getLayoutY());
         });
     }
     @FXML
