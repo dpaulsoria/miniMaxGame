@@ -18,8 +18,7 @@ public class Board {
     private final String borderStyles = "-fx-border-color: black; -fx-border-width: 2px;";
     private Image X;
     private Image O;
-    private Image N;
-    private final Character EMPTY = 'T';
+    private Image EMPTY;
     private final double SIZE = 360;
     private final double CELL_SIZE = SIZE/3;
 
@@ -31,7 +30,7 @@ public class Board {
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
-                cell.setImage(N);
+                cell.setImage(EMPTY);
                 cell.setOnMouseClicked(e -> {
                     if (!cell.isSelected()) {
                         cell.setSelected(true);
@@ -56,7 +55,7 @@ public class Board {
         try {
             X = new Image(new FileInputStream("src/img/X.png"));
             O = new Image(new FileInputStream("src/img/O.png"));
-            N = new Image(new FileInputStream("src/img/circle.png"));
+            EMPTY = new Image(new FileInputStream("src/img/circle.png"));
         } catch(Exception e) {
             System.out.println(e.toString());
         }
