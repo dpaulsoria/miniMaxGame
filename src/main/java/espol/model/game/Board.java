@@ -13,39 +13,47 @@ public class Board {
     private GridPane grid;
     private Character player;
     private Character bot;
-    private ArrayList<Pair> table = new ArrayList<>();
     private final String borderStyles = "-fx-border-color: black; -fx-border-width: 2px;";
+    private Image X;
+    private Image O;
+    private Image N;
+    private final Character EMPTY = 'T';
 
     public Board(Character p) {
+        setBasicsOptions();
         player = p;
         bot = (player.equals('X') ? 'O':'X');
         grid = new GridPane();
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
-                StackPane sp = new StackPane();
-                Cell cell = new Cell(player, new Pair(i, j), false);
-                sp.setOnMouseClicked(e -> {
+                Cell cell = new Cell(EMPTY, new Pair(i, j), false);
+                //cell.setImage(N);
+                cell.setOnMouseClicked(e -> {
                     if (!cell.isSelected()) {
-                        table.addLast(cell.getPosition());
                         cell.setSelected(true);
-                        ImageView imgView = cell.getImgView();
-                        try {
-                            imgView.setImage(new Image(new FileInputStream("src/img/" + cell.getC() + ".png")));
-                        } catch (FileNotFoundException ex) {
-                            System.out.println(ex.toString());;
-                        }
-                    }
+                        cell.setImage((player.equals('X') ? X:O));
+                        //else if (cell.getC().equals('T'))
+                     }
                 });
-                sp.getChildren().add(cell.getImgView());
-                sp.setStyle(borderStyles);
-                grid.add(sp, j, i);
+                cell.setStyle(borderStyles + "-fx-background-color: black;");
+
+                grid.add(cell, j, i);
+                //grid.getChildren().remove(j, i);
             }
         }
-        grid.setPrefSize(320,320);
+        grid.setStyle(borderStyles);
+        grid.setPrefSize(330,330);
     }
 
-
-
+    private void setBasicsOptions() {
+        try {
+            X = new Image(new FileInputStream("src/img/X.png"));
+            O = new Image(new FileInputStream("src/img/O.png"));
+            N = new Image(new FileInputStream("src/img/negro.png"));
+        } catch(Exception e) {
+            System.out.println(e.toString());
+        }
+    }
     public void clear() { grid.getChildren().clear(); }
 
     public GridPane getGrid() { return grid; }
@@ -55,6 +63,4 @@ public class Board {
     public Character getBot() { return bot; }
     public void setBot(Character bot) { this.bot = bot; }
     public String getBorderStyles() { return borderStyles; }
-    public ArrayList<Pair> getTable() { return table; }
-    public void setTable(ArrayList<Pair> t) { table = t; }
 }

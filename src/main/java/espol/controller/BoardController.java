@@ -3,9 +3,12 @@ package espol.controller;
 import espol.model.game.Board;
 import espol.model.game.Game;
 import espol.startGame.App;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,9 +25,7 @@ public class BoardController implements Initializable{
     private Button giveUpButton;
     @FXML
     private BorderPane root;
-    @FXML
-    private AnchorPane anchorPane;
-
+    private GridPane grid;
     private Game gg;
     private Board board;
     private Character player = 'n';
@@ -34,14 +35,15 @@ public class BoardController implements Initializable{
         player = gg.getPlayer();
         markLabel.setText(String.valueOf(player));
         board = new Board(player);
-        GridPane grid = board.getGrid();
-        grid.setLayoutX(48);
-        grid.setLayoutY(40);
-        anchorPane.getChildren().add(grid);
+        grid = board.getGrid();
+        root.setCenter(grid);
     }
     @FXML
     protected void newGame() {
-        
+        ObservableList<Node> list = grid.getChildren();
+        list.forEach(e -> {
+            System.out.println(e.getClass());
+        });
     }
     @FXML
     protected void clearTable() { board.clear(); }
@@ -66,8 +68,5 @@ public class BoardController implements Initializable{
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        root.setMinSize(500, 400);
-        root.setMaxSize(500, 400);
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {  }
 }

@@ -4,33 +4,60 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
    <right>
-      <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="300.0" maxWidth="85.0" minHeight="300.0" minWidth="85.0" prefHeight="300.0" prefWidth="85.0" BorderPane.alignment="CENTER">
          <children>
             <StackPane prefHeight="60.0" prefWidth="85.0">
                <children>
                   <Button fx:id="giveUpButton" mnemonicParsing="false" onAction="#giveUp" text="Give Up!" />
                </children>
             </StackPane>
-            <StackPane prefHeight="65.0" prefWidth="100.0">
+            <StackPane prefHeight="30.0" prefWidth="85.0">
                <children>
                   <Label text="Your mark" />
                </children>
             </StackPane>
-            <StackPane prefHeight="50.0" prefWidth="100.0">
+            <StackPane prefHeight="25.0" prefWidth="85.0">
                <children>
                   <Label fx:id="markLabel" />
                </children>
             </StackPane>
-            <Button mnemonicParsing="false" onAction="#clearTable" text="Button" />
+            <StackPane prefHeight="85.0" prefWidth="85.0">
+               <children>
+                  <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#newGame" text="Test" />
+               </children>
+            </StackPane>
          </children>
       </VBox>
    </right>
+   <bottom>
+      <AnchorPane maxHeight="50.0" maxWidth="500.0" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <AnchorPane maxHeight="350.0" maxWidth="50.0" minHeight="350.0" minWidth="50.0" prefHeight="350.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+   </left>
+   <top>
+      <AnchorPane maxHeight="50.0" maxWidth="500.0" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
+   </top>
    <center>
-      <AnchorPane fx:id="anchorPane" prefHeight="300.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+      <GridPane fx:id="grid" maxHeight="320.0" maxWidth="320.0" minHeight="320.0" minWidth="320.0" prefHeight="320.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
    </center>
 </BorderPane>

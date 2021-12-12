@@ -30,12 +30,14 @@ public class HelloController implements Initializable {
     @FXML
     private RadioButton botRadioButton;
 
-    private Character playerMark = 'n';
+    private Character playerMark;
     private boolean playerBegins;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        playerMark = 'n';
         titleLabel.setText("MiniMax Game!");
+        playerBegins = false;
     }
     @FXML
     protected void startGame() {
