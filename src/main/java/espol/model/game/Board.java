@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.TreeMap;
 
 public class Board {
     private GridPane grid;
@@ -21,6 +22,7 @@ public class Board {
     private Image O;
     private Image EMPTY;
     private final double SIZE = 360;
+    private TreeMap<Integer, ArrayList<Cell>> mapa = new TreeMap();
 
     public Board(Character p, GridPane gridPane, Game g) {
         setBasicsOptions();
@@ -30,6 +32,7 @@ public class Board {
         bot = (player.equals('X') ? 'O':'X');
         grid = gridPane;
         for (int i = 0; i<3; i++) {
+            ArrayList<Cell> tmp = new ArrayList();
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
                 cell.setImage(EMPTY);
@@ -40,10 +43,11 @@ public class Board {
                         cell.setImage((player.equals('X') ? X:O));
                      }
                 });
-                cell.setStyle(borderStyles);
 
                 grid.add(cell, j, i);
+                tmp.addLast(cell);
             }
+            mapa.put(i,tmp);
         }
         grid.setAlignment(Pos.CENTER);
         grid.setStyle(borderStyles);
