@@ -1,6 +1,7 @@
 package espol.controller;
 
 import espol.model.game.Board;
+import espol.model.game.Cell;
 import espol.model.game.Game;
 import espol.startGame.App;
 import javafx.collections.ObservableList;
@@ -36,16 +37,14 @@ public class BoardController implements Initializable{
         player = gg.getPlayer();
         markLabel.setText(String.valueOf(player));
         board = new Board(player, grid);
-        //grid = board.getGrid();
         grid.setAlignment(Pos.CENTER);
-        //grid.set
         root.setCenter(grid);
     }
     @FXML
     protected void newGame() {
         ObservableList<Node> list = grid.getChildren();
         list.forEach(e -> {
-            System.out.println(e.getLayoutX() + ", " + e.getLayoutY());
+            System.out.println(((Cell)e).toString());
         });
     }
     @FXML

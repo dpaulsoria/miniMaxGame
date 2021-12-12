@@ -33,6 +33,7 @@ public class Board {
                 cell.setOnMouseClicked(e -> {
                     if (!cell.isSelected()) {
                         cell.setSelected(true);
+                        cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
                      }
                 });
