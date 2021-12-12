@@ -40,7 +40,6 @@ public class Board {
                 cell.setStyle(borderStyles);
 
                 grid.add(cell, j, i);
-                //grid.getChildren().remove(j, i);
             }
         }
         grid.setAlignment(Pos.CENTER);
