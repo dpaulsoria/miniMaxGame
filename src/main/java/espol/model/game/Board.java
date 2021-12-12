@@ -15,17 +15,20 @@ public class Board {
     private GridPane grid;
     private Character player;
     private Character bot;
+    private Game gg;
     private final String borderStyles = "-fx-border-color: black; -fx-border-width: 2px;";
     private Image X;
     private Image O;
     private Image EMPTY;
     private final double SIZE = 360;
 
-    public Board(Character p, GridPane g) {
+    public Board(Character p, GridPane gridPane, Game g) {
         setBasicsOptions();
+        gg = g;
+        gg.setBoard(this);
         player = p;
         bot = (player.equals('X') ? 'O':'X');
-        grid = g;
+        grid = gridPane;
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
@@ -35,9 +38,7 @@ public class Board {
                         cell.setSelected(true);
                         cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
-                        Game.nextTurn();
                      }
-
                 });
                 cell.setStyle(borderStyles);
 
@@ -69,4 +70,28 @@ public class Board {
     public Character getBot() { return bot; }
     public void setBot(Character bot) { this.bot = bot; }
     public String getBorderStyles() { return borderStyles; }
+    public Game getGg() { return gg; }
+    public void setGg(Game gg) { this.gg = gg; }
+    public Image getX() {
+        return X;
+    }
+    public void setX(Image x) {
+        X = x;
+    }
+    public Image getO() {
+        return O;
+    }
+    public void setO(Image o) {
+        O = o;
+    }
+    public Image getEMPTY() {
+        return EMPTY;
+    }
+    public void setEMPTY(Image EMPTY) {
+        this.EMPTY = EMPTY;
+    }
+
+    public double getSIZE() {
+        return SIZE;
+    }
 }

@@ -1,6 +1,7 @@
 package espol.model.game;
 
 import espol.model.tda.BinaryTree;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -19,6 +20,11 @@ public class Game {
         player = opt;
         bot = (player.equals('X') ? 'O':'X');
         playerBegins = ifPlayerBegins;
+    }
+    public void botTurn(Pair position) {
+        Cell c = new Cell(new Pair(position.x, position.y), true);
+        c.setImage((player.equals('X') ? board.getO():board.getX()));
+        board.getGrid().add(c, position.x, position.y);
     }
 
     public Character getPlayer() { return player; }

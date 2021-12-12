@@ -36,7 +36,7 @@ public class BoardController implements Initializable{
         gg = g;
         player = gg.getPlayer();
         markLabel.setText(String.valueOf(player));
-        board = new Board(player, grid);
+        board = new Board(player, grid, gg);
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
     }
