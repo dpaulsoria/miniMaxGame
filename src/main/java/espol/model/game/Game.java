@@ -1,7 +1,8 @@
 package espol.model.game;
 
 import espol.model.tda.ArrayList;
-import espol.model.tda.BinaryTree;
+import espol.model.tda.Tree;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -10,22 +11,21 @@ public class Game {
     private Character bot;
     private boolean playerBegins;
     private Board board;
-    private BinaryTree<Character> miniMax;
+    private Tree<Character> miniMax;
     private boolean botTurn;
     private boolean gameWon = false;
     private Character winner = 'n';
     private Character EMPTY_CHAR = Board.EMPTY_CHAR;
+    private boolean playerTurn = false;
 
     public Game(Character opt, boolean ifPlayerBegins) {
         player = opt;
         bot = (player.equals('X') ? 'O':'X');
         playerBegins = ifPlayerBegins;
     }
-    public void botTurn(Pair position) {
-        TreeMap<Integer, ArrayList<Cell>> map = board.getMap();
-        map.get(position.y).get(position.x).setC(bot);
-        map.get(position.y).get(position.x).setImage((bot.equals('X') ? board.getX():board.getO()));
-        map.get(position.y).get(position.x).setSelected(true);
+    public void botTurn() {
+        miniMax nextMove = new miniMax(this.getBoard());
+        this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
     }
     
     public int utilityFunction(){
@@ -77,6 +77,34 @@ public class Game {
         return utilP;
     }
 
+    public boolean checkIfBotWin() { return checkGame(bot); }
+    public boolean checkIfPlayerWin() { return checkGame(player); }
+
+    public boolean checkGame(Character c) {
+        // Validar filas
+        for (int x = 0; x<3; x++) {
+            for (int y = 0; y<3; y++) {
+                if (board.getMap().get(x).get(y).getC().equals(c)) return true;
+            }
+        }
+        // Validar columnas
+        for (int y = 0; y<3; y++) {
+            for (int x = 0; x<3; x++) {
+                if (board.getMap().get(x).get(y).getC().equals(c)) return true;
+            }
+        }
+        // Validar diagonales
+        for (int i = 0; i<3; i++) {
+            if (board.getMap().get(i).get(i).getC().equals(c)) return true;
+        }
+        for (int i = 2; i>-1; i--) {
+            if (board.getMap().get(i).get(i).getC().equals(c)) return true;
+        }
+        return false;
+    }
+
+    public boolean isPlayerTurn() { return playerTurn; }
+    public void setPlayerturn(Boolean b) { this.playerTurn = b; }
     public Character getPlayer() { return player; }
     public void setPlayer(Character player) { this.player = player; }
     public Character getBot() { return bot; }
@@ -85,12 +113,12 @@ public class Game {
     public void setPlayerBegins(boolean playerBegins) { this.playerBegins = playerBegins; }
     public Board getBoard() { return board; }
     public void setBoard(Board board) { this.board = board; }
-    public BinaryTree<Character> getMiniMax() { return miniMax; }
-    public void setMiniMax(BinaryTree<Character> miniMax) { this.miniMax = miniMax; }
+    public Tree<Character> getMiniMax() { return miniMax; }
+    public void setMiniMax(Tree<Character> miniMax) { this.miniMax = miniMax; }
     public boolean isBotTurn() { return botTurn; }
     public void setBotTurn(boolean botTurn) { this.botTurn = botTurn; }
     public boolean isGameWon() { return gameWon; }
     public void setGameWon(boolean gameWon) { this.gameWon = gameWon; }
     public Character getWinner() { return winner; }
-    public void setWinner(Character winner) { this.winner = winner; }
+    public void setWinner(Character winner) { this.gameWon = true; this.winner = winner; }
 }

@@ -25,7 +25,6 @@ public class BoardController implements Initializable{
     private Button giveUpButton;
     @FXML
     private BorderPane root;
-    @FXML
     private GridPane grid;
     private Game gg;
     private Board board;
@@ -35,10 +34,11 @@ public class BoardController implements Initializable{
         gg = g;
         player = gg.getPlayer();
         markLabel.setText(String.valueOf(player));
-        board = new Board(player, grid, gg);
+        board = new Board(player, gg);
+        grid = board.getGrid();
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
-        if (!gg.isPlayerBegins()) board.makeRandom();
+        if (!gg.isPlayerBegins());
     }
     @FXML
     protected void newGame() {
@@ -71,7 +71,5 @@ public class BoardController implements Initializable{
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) { }
 }
