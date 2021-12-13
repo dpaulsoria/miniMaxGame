@@ -10,29 +10,42 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
    <right>
       <VBox maxHeight="300.0" maxWidth="85.0" minHeight="300.0" minWidth="85.0" prefHeight="300.0" prefWidth="85.0" BorderPane.alignment="CENTER">
          <children>
             <StackPane prefHeight="60.0" prefWidth="85.0">
                <children>
-                  <Button fx:id="giveUpButton" mnemonicParsing="false" onAction="#giveUp" text="Give Up!" />
+                  <Button fx:id="giveUpButton" mnemonicParsing="false" onAction="#giveUp" style="-fx-background-color: #2B59B9;" text="Give Up!" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font></Button>
                </children>
             </StackPane>
             <StackPane prefHeight="30.0" prefWidth="85.0">
                <children>
-                  <Label text="Your mark" />
+                  <Label text="Your mark">
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font></Label>
                </children>
             </StackPane>
             <StackPane prefHeight="25.0" prefWidth="85.0">
                <children>
-                  <Label fx:id="markLabel" />
+                  <Label fx:id="markLabel" text="X">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Label>
                </children>
             </StackPane>
             <StackPane prefHeight="85.0" prefWidth="85.0">
                <children>
-                  <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#newGame" text="Test" />
+                  <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#newGame" style="-fx-background-color: #2B59B9;" text="Test" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font></Button>
                </children>
             </StackPane>
          </children>

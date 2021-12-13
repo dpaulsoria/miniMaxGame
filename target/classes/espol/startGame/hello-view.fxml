@@ -10,14 +10,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" alignment="CENTER" maxHeight="410.0" maxWidth="280.0" minHeight="410.0" minWidth="280.0" prefHeight="410.0" prefWidth="280.0" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.HelloController">
+<VBox fx:id="root" alignment="CENTER" maxHeight="410.0" maxWidth="298.0" minHeight="410.0" minWidth="280.0" prefHeight="410.0" prefWidth="298.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.HelloController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <ImageView fx:id="img" fitHeight="240.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
 
-    <Label fx:id="titleLabel" text="Welcome to MiniMax Game!" />
+    <Label fx:id="titleLabel" text="Choose">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
    <StackPane prefHeight="123.0" prefWidth="340.0">
       <children>
          <GridPane prefHeight="34.0" prefWidth="340.0">
@@ -33,37 +37,58 @@
             <children>
                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                   <children>
-                     <RadioButton fx:id="oRadioButton" mnemonicParsing="false" onAction="#setORadioButton" text="O" />
+                     <RadioButton fx:id="oRadioButton" mnemonicParsing="false" onAction="#setORadioButton" text="O">
+                        <font>
+                           <Font size="14.0" />
+                        </font></RadioButton>
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2">
                   <children>
-                     <RadioButton mnemonicParsing="false" onAction="#setXRadioButton" text="X" fx:id="xRadioButton" />
+                     <RadioButton mnemonicParsing="false" onAction="#setXRadioButton" text="X" fx:id="xRadioButton">
+                        <font>
+                           <Font size="14.0" />
+                        </font></RadioButton>
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <children>
-                     <RadioButton fx:id="meRadioButton" mnemonicParsing="false" onAction="#setMeRadioButton" text="Me" />
+                     <RadioButton fx:id="meRadioButton" mnemonicParsing="false" onAction="#setMeRadioButton" text="Me">
+                        <font>
+                           <Font size="14.0" />
+                        </font></RadioButton>
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <children>
-                     <RadioButton fx:id="botRadioButton" mnemonicParsing="false" onAction="#setBotRadioButton" text="Bot" />
+                     <RadioButton fx:id="botRadioButton" mnemonicParsing="false" onAction="#setBotRadioButton" text="Bot">
+                        <font>
+                           <Font size="14.0" />
+                        </font></RadioButton>
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0">
                   <children>
-                     <Label text="Your mark:" />
+                     <Label text="Your mark:">
+                        <font>
+                           <Font size="14.0" />
+                        </font></Label>
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
                   <children>
-                     <Label text="Who begins?" />
+                     <Label text="Who begins?">
+                        <font>
+                           <Font size="14.0" />
+                        </font></Label>
                   </children>
                </StackPane>
             </children>
          </GridPane>
       </children>
    </StackPane>
-    <Button fx:id="startButton" onAction="#startGame" text="Start Game!" />
+    <Button fx:id="startButton" onAction="#startGame" style="-fx-background-color: #2B59B9;" text="Start Game!" textFill="WHITE">
+      <font>
+         <Font name="Segoe UI Bold" size="15.0" />
+      </font></Button>
 </VBox>
