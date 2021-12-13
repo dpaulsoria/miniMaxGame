@@ -1,9 +1,9 @@
 package espol.model.game;
 
+import espol.model.tda.ArrayList;
 import espol.model.tda.BinaryTree;
 import javafx.scene.layout.GridPane;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Game {
@@ -26,6 +26,8 @@ public class Game {
         c.setC(bot);
         c.setImage((player.equals('X') ? board.getO():board.getX()));
         board.getGrid().add(c, position.x, position.y);
+        TreeMap<Integer, ArrayList<Cell>> map = board.getMapa();
+        map.get(position.y).get(position.x).setC(bot);
     }
 
     public Character getPlayer() { return player; }

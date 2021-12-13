@@ -82,35 +82,13 @@ public class Board {
     public String getBorderStyles() { return borderStyles; }
     public Game getGg() { return gg; }
     public void setGg(Game gg) { this.gg = gg; }
-    public Image getX() {
-        return X;
-    }
-    public void setX(Image x) {
-        X = x;
-    }
-    public Image getO() {
-        return O;
-    }
-    public void setO(Image o) {
-        O = o;
-    }
-    public Image getEMPTY() {
-        return EMPTY;
-    }
-    public void setEMPTY(Image EMPTY) {
-        this.EMPTY = EMPTY;
-    }
-
-    public double getSIZE() {
-        return SIZE;
-    }
-
-    public TreeMap<Integer, ArrayList<Cell>> getMapa() {
-        return mapa;
-    }
-
-    public void setMapa(TreeMap<Integer, ArrayList<Cell>> mapa) {
-        this.mapa = mapa;
-    }
-    
+    public Image getX() { return X; }
+    public void setX(Image x) { X = x; }
+    public Image getO() { return O; }
+    public void setO(Image o) { O = o; }
+    public Image getEMPTY() { return EMPTY; }
+    public void setEMPTY(Image EMPTY) { this.EMPTY = EMPTY; }
+    public double getSIZE() { return SIZE;  }
+    public TreeMap<Integer, ArrayList<Cell>> getMapa() { return mapa; }
+    public void setMapa(TreeMap<Integer, ArrayList<Cell>> mapa) { this.mapa = mapa; }
 }
