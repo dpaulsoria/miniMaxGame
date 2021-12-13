@@ -14,6 +14,7 @@ public class Game {
     private boolean botTurn;
     private boolean gameWon = false;
     private Character winner = 'n';
+    private Character EMPTY_CHAR = Board.EMPTY_CHAR;
 
     public Game(Character opt, boolean ifPlayerBegins) {
         player = opt;
@@ -27,12 +28,12 @@ public class Game {
         map.get(position.y).get(position.x).setSelected(true);
     }
     
-    public int utilidad(){
-        int pJugador=p(board.getMap(),player);
-        System.out.println(">" + player + ":" + pJugador);
+    public int utilityFunction(){
+        int pPlayer=p(board.getMap(),player);
+        System.out.println(">" + player + ":" + pPlayer);
         int pBot=p(board.getMap(),bot);
         System.out.println(">" + bot + ":" + pBot);
-        return pJugador-pBot;
+        return pPlayer-pBot;
     }
     
     public int p(TreeMap<Integer, espol.model.tda.ArrayList<Cell>> tablero, Character c){
@@ -45,7 +46,7 @@ public class Game {
         espol.model.tda.ArrayList<Cell> F2 = tablero.get(2);
         //columnas
         for(int i=0;i<F0.size();i++){
-            if((F0.get(i).getC()==c || F0.get(i).getC()=='n') && (F1.get(i).getC()==c || F1.get(i).getC()=='n') && (F2.get(i).getC()==c || F2.get(i).getC()=='n')){
+            if((F0.get(i).getC()==c || F0.get(i).getC()==EMPTY_CHAR) && (F1.get(i).getC()==c || F1.get(i).getC()==EMPTY_CHAR) && (F2.get(i).getC()==c || F2.get(i).getC()==EMPTY_CHAR)){
                 columnas++;
                 }
         }
@@ -56,7 +57,7 @@ public class Game {
             tmp=0;                
             espol.model.tda.ArrayList<Cell> array=par.getValue();
                     for(int i=0;i<array.size();i++){
-                        if(array.get(i).getC()==c || array.get(i).getC()=='n')
+                        if(array.get(i).getC()==c || array.get(i).getC()==EMPTY_CHAR)
                             tmp++;                  
                     } 
             if(tmp==3){
@@ -65,10 +66,10 @@ public class Game {
         }
         System.out.println("    " + filas);
         //diagonales 
-        if((F0.get(0).getC()==c || F0.get(0).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(2).getC()==c || F2.get(2).getC()=='n')){
+        if((F0.get(0).getC()==c || F0.get(0).getC()==EMPTY_CHAR) && (F1.get(1).getC()==c || F1.get(1).getC()==EMPTY_CHAR) && (F2.get(2).getC()==c || F2.get(2).getC()==EMPTY_CHAR)){
             diagonales++;
         }        
-        if((F0.get(2).getC()==c || F0.get(2).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(0).getC()==c || F2.get(0).getC()=='n')){
+        if((F0.get(2).getC()==c || F0.get(2).getC()==EMPTY_CHAR) && (F1.get(1).getC()==c || F1.get(1).getC()==EMPTY_CHAR) && (F2.get(0).getC()==c || F2.get(0).getC()==EMPTY_CHAR)){
             diagonales++;
         }
         System.out.println("    " + diagonales);

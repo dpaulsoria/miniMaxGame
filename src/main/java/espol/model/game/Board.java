@@ -16,6 +16,7 @@ public class Board {
     private GridPane grid;
     private Character player;
     private Character bot;
+    public static final Character EMPTY_CHAR = 'n';
     private Game gg;
     private final String borderStyles = "-fx-border-color: black; -fx-border-width: 2px;";
     private Image X;
@@ -47,7 +48,7 @@ public class Board {
                                 System.out.println(c);
                             }
                         }
-                        System.out.println("--> Utility: " + gg.utilidad());
+                        System.out.println("--> Utility: " + gg.utilityFunction());
                      }
                 });
 
