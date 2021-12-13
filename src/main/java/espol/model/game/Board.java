@@ -1,6 +1,7 @@
 package espol.model.game;
 
 import espol.model.tda.ArrayList;
+import static espol.model.game.Utilitaria.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -11,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 public class Board {
@@ -37,22 +39,26 @@ public class Board {
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
                 cell.setImage(EMPTY);
+                tmp.addLast(cell);
                 cell.setOnMouseClicked(e -> {
                     if (!cell.isSelected()) {
                         cell.setSelected(true);
                         cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
                         for(Map.Entry<Integer, ArrayList<Cell>> par: mapa.entrySet()){
-                            if(par.getKey()==cell.getPosition().x){
-                                par.getValue().set(cell.getPosition().y, cell);
-                                System.out.println(mapa);
+                            for(Cell c:par.getValue()){
+                                System.out.println(c);
                             }
+                        }
+                        System.out.println("///////////////////////////////");
+                        ArrayList<Pair> nulls = countNulls(mapa);
+                        if(nulls.size()!=0){
+                            seleccionar(mapa,nulls);
                         }
                      }
                 });
 
                 grid.add(cell, j, i);
-                tmp.addLast(cell);
             }
             mapa.put(i,tmp);
         }
@@ -63,6 +69,24 @@ public class Board {
         grid.setMaxSize(SIZE-10,SIZE);
     }
 
+    public void seleccionar(TreeMap<Integer, ArrayList<Cell>> mapa, ArrayList<Pair> nulls){
+        Random rd = new Random();
+        Pair par = nulls.get(rd.nextInt(nulls.size()));
+        for(Map.Entry<Integer, ArrayList<Cell>> pair: mapa.entrySet()){
+            for(Cell c:pair.getValue()){
+                if(par.x==c.getPosition().x && par.y==c.getPosition().y){
+                    c.setSelected(true);
+                    c.setC(bot);
+                     if(player.equals('X')){
+                        c.setImage(O);
+                    }else if(player.equals('O')){
+                        c.setImage(X);
+                    }
+                }
+            }
+        }
+    }
+    
     private void setBasicsOptions() {
         try {
             X = new Image(new FileInputStream("src/img/X.png"));
