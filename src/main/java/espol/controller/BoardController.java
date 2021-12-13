@@ -38,6 +38,7 @@ public class BoardController implements Initializable{
         board = new Board(player, grid, gg);
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
+        if (!gg.isPlayerBegins()) board.makeRandom();
     }
     @FXML
     protected void newGame() {
@@ -70,5 +71,7 @@ public class BoardController implements Initializable{
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

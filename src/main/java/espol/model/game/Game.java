@@ -25,13 +25,15 @@ public class Game {
         c.setC(bot);
         c.setImage((player.equals('X') ? board.getO():board.getX()));
         board.getGrid().add(c, position.x, position.y);
-        TreeMap<Integer, ArrayList<Cell>> map = board.getMapa();
+        TreeMap<Integer, ArrayList<Cell>> map = board.getMap();
         map.get(position.y).get(position.x).setC(bot);
     }
     
     public int utilidad(){
-        int pJugador=p(board.getMapa(),player);
-        int pBot=p(board.getMapa(),bot);        
+        int pJugador=p(board.getMap(),player);
+        System.out.println(">" + player + ":" + pJugador);
+        int pBot=p(board.getMap(),bot);
+        System.out.println(">" + bot + ":" + pBot);
         return pJugador-pBot;
     }
     
@@ -40,18 +42,16 @@ public class Game {
         int filas=0;
         int columnas=0;
         int diagonales=0;
-        espol.model.tda.ArrayList<Cell> fila0 = new espol.model.tda.ArrayList<Cell>();
-        espol.model.tda.ArrayList<Cell> fila1 = new espol.model.tda.ArrayList<Cell>();
-        espol.model.tda.ArrayList<Cell> fila2 = new espol.model.tda.ArrayList<Cell>();
-        fila0= tablero.get(0);
-        fila1= tablero.get(1);
-        fila2= tablero.get(2);
+        espol.model.tda.ArrayList<Cell> F0 = tablero.get(0);
+        espol.model.tda.ArrayList<Cell> F1 = tablero.get(1);
+        espol.model.tda.ArrayList<Cell> F2 = tablero.get(2);
         //columnas
-        for(int i=0;i<fila0.size();i++){
-            if((fila0.get(i).getC()==c || fila0.get(i).getC()=='n') && (fila1.get(i).getC()==c || fila1.get(i).getC()=='n') && (fila2.get(i).getC()==c || fila2.get(i).getC()=='n')){
+        for(int i=0;i<F0.size();i++){
+            if((F0.get(i).getC()==c || F0.get(i).getC()=='n') && (F1.get(i).getC()==c || F1.get(i).getC()=='n') && (F2.get(i).getC()==c || F2.get(i).getC()=='n')){
                 columnas++;
                 }
         }
+        System.out.println("    " + columnas);
         //filas
         int tmp=0;
         for(Map.Entry<Integer, espol.model.tda.ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
@@ -65,13 +65,15 @@ public class Game {
             filas++;
             }
         }
+        System.out.println("    " + filas);
         //diagonales 
-        if((fila0.get(0).getC()==c || fila0.get(0).getC()=='n') && (fila1.get(1).getC()==c || fila1.get(1).getC()=='n') && (fila2.get(2).getC()==c || fila2.get(2).getC()=='n')){
+        if((F0.get(0).getC()==c || F0.get(0).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(2).getC()==c || F2.get(2).getC()=='n')){
             diagonales++;
         }        
-        if((fila0.get(2).getC()==c || fila0.get(2).getC()=='n') && (fila1.get(1).getC()==c || fila1.get(1).getC()=='n') && (fila2.get(0).getC()==c || fila2.get(0).getC()=='n')){
+        if((F0.get(2).getC()==c || F0.get(2).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(0).getC()==c || F2.get(0).getC()=='n')){
             diagonales++;
-        }        
+        }
+        System.out.println("    " + diagonales);
         utilP=filas+columnas+diagonales;                    
         return utilP;
     }

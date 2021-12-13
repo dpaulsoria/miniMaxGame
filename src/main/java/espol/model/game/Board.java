@@ -2,15 +2,12 @@ package espol.model.game;
 
 import espol.model.tda.ArrayList;
 import static espol.model.game.Utilitaria.*;
-import javafx.geometry.Insets;
+
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -25,7 +22,7 @@ public class Board {
     private Image O;
     private Image EMPTY;
     private final double SIZE = 360;
-    private TreeMap<Integer, ArrayList<Cell>> mapa = new TreeMap();
+    private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
 
     public Board(Character p, GridPane gridPane, Game g) {
         setBasicsOptions();
@@ -45,22 +42,19 @@ public class Board {
                         cell.setSelected(true);
                         cell.setC(player);
                         cell.setImage((player.equals('X') ? X:O));
-                        for(Map.Entry<Integer, ArrayList<Cell>> par: mapa.entrySet()){
+                        for(Map.Entry<Integer, ArrayList<Cell>> par: map.entrySet()){
                             for(Cell c:par.getValue()){
                                 System.out.println(c);
                             }
                         }
-                        System.out.println("///////////////////////////////");
-                        ArrayList<Pair> nulls = countNulls(mapa);
-                        if(nulls.size()!=0){
-                            seleccionar(mapa,nulls);
-                        }
+                        System.out.println("--> Utility: " + gg.utilidad());
+                        makeRandom();
                      }
                 });
 
                 grid.add(cell, j, i);
             }
-            mapa.put(i,tmp);
+            map.put(i,tmp);
         }
         grid.setAlignment(Pos.CENTER);
         grid.setStyle(borderStyles);
@@ -69,10 +63,14 @@ public class Board {
         grid.setMaxSize(SIZE-10,SIZE);
     }
 
-    public void seleccionar(TreeMap<Integer, ArrayList<Cell>> mapa, ArrayList<Pair> nulls){
+    public void makeRandom() {
+        ArrayList<Pair> nulls = countNulls(map);
+        if(nulls.size()!=0) seleccionar(nulls);
+    }
+    public void seleccionar(ArrayList<Pair> nulls){
         Random rd = new Random();
         Pair par = nulls.get(rd.nextInt(nulls.size()));
-        for(Map.Entry<Integer, ArrayList<Cell>> pair: mapa.entrySet()){
+        for(Map.Entry<Integer, ArrayList<Cell>> pair: map.entrySet()){
             for(Cell c:pair.getValue()){
                 if(par.x==c.getPosition().x && par.y==c.getPosition().y){
                     c.setSelected(true);
@@ -114,6 +112,6 @@ public class Board {
     public Image getEMPTY() { return EMPTY; }
     public void setEMPTY(Image EMPTY) { this.EMPTY = EMPTY; }
     public double getSIZE() { return SIZE;  }
-    public TreeMap<Integer, ArrayList<Cell>> getMapa() { return mapa; }
-    public void setMapa(TreeMap<Integer, ArrayList<Cell>> mapa) { this.mapa = mapa; }
+    public TreeMap<Integer, ArrayList<Cell>> getMap() { return map; }
+    public void setMap(TreeMap<Integer, ArrayList<Cell>> map) { this.map = map; }
 }
