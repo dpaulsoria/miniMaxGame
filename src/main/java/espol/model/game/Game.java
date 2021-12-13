@@ -21,12 +21,10 @@ public class Game {
         playerBegins = ifPlayerBegins;
     }
     public void botTurn(Pair position) {
-        Cell c = new Cell(new Pair(position.x, position.y), true);
-        c.setC(bot);
-        c.setImage((player.equals('X') ? board.getO():board.getX()));
-        board.getGrid().add(c, position.x, position.y);
         TreeMap<Integer, ArrayList<Cell>> map = board.getMap();
         map.get(position.y).get(position.x).setC(bot);
+        map.get(position.y).get(position.x).setImage((bot.equals('X') ? board.getX():board.getO()));
+        map.get(position.y).get(position.x).setSelected(true);
     }
     
     public int utilidad(){

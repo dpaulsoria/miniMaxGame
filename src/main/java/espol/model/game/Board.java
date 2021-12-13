@@ -48,7 +48,6 @@ public class Board {
                             }
                         }
                         System.out.println("--> Utility: " + gg.utilidad());
-                        makeRandom();
                      }
                 });
 
@@ -63,28 +62,6 @@ public class Board {
         grid.setMaxSize(SIZE-10,SIZE);
     }
 
-    public void makeRandom() {
-        ArrayList<Pair> nulls = countNulls(map);
-        if(nulls.size()!=0) seleccionar(nulls);
-    }
-    public void seleccionar(ArrayList<Pair> nulls){
-        Random rd = new Random();
-        Pair par = nulls.get(rd.nextInt(nulls.size()));
-        for(Map.Entry<Integer, ArrayList<Cell>> pair: map.entrySet()){
-            for(Cell c:pair.getValue()){
-                if(par.x==c.getPosition().x && par.y==c.getPosition().y){
-                    c.setSelected(true);
-                    c.setC(bot);
-                     if(player.equals('X')){
-                        c.setImage(O);
-                    }else if(player.equals('O')){
-                        c.setImage(X);
-                    }
-                }
-            }
-        }
-    }
-    
     private void setBasicsOptions() {
         try {
             X = new Image(new FileInputStream("src/img/X.png"));
