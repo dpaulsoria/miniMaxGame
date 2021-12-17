@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.controller.BoardController">
    <right>
       <VBox maxHeight="300.0" maxWidth="85.0" minHeight="300.0" minWidth="85.0" prefHeight="300.0" prefWidth="85.0" BorderPane.alignment="CENTER">
          <children>
@@ -55,7 +55,7 @@
       <AnchorPane maxHeight="50.0" maxWidth="500.0" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
    </bottom>
    <left>
-      <AnchorPane maxHeight="350.0" maxWidth="50.0" minHeight="350.0" minWidth="50.0" prefHeight="350.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+      <AnchorPane maxHeight="350.0" maxWidth="300.0" minHeight="350.0" minWidth="300.0" prefHeight="350.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
    </left>
    <top>
       <AnchorPane maxHeight="50.0" maxWidth="500.0" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />

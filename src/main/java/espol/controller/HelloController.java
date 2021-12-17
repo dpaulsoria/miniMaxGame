@@ -55,7 +55,7 @@ public class HelloController implements Initializable {
         Game game = new Game(playerMark, playerBegins);
         try {
             FXMLLoader fxml = App.loadFXMLLoad("board");
-            App.switchWindowGame(fxml, 500, 400);
+            App.switchWindowGame(fxml, 750, 400);
             BoardController bc = fxml.getController();
             bc.setGame(game);
         } catch (IOException e) {
