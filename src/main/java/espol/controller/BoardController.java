@@ -25,6 +25,7 @@ public class BoardController implements Initializable{
     private Button giveUpButton;
     @FXML
     private BorderPane root;
+    @FXML
     private GridPane grid;
     private Game gg;
     private Board board;
@@ -38,14 +39,16 @@ public class BoardController implements Initializable{
         grid = board.getGrid();
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
-        if (!gg.isPlayerBegins());
+        if (!gg.isPlayerBegins()) gg.botTurn();
     }
     @FXML
     protected void newGame() {
+        /*
         ObservableList<Node> list = grid.getChildren();
         list.forEach(e -> {
             System.out.println(((Cell)e).toString());
         });
+        */
     }
     @FXML
     protected void clearTable() { board.clear(); }

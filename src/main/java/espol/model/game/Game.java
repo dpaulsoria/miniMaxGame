@@ -24,8 +24,9 @@ public class Game {
         playerBegins = ifPlayerBegins;
     }
     public void botTurn() {
-        miniMax nextMove = new miniMax(this.getBoard());
-        this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
+        //miniMax nextMove = new miniMax(this.getBoard());
+        //this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
+        getBoard().markIn(new Pair(1,1), bot);
     }
     
     public int utilityFunction(){

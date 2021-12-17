@@ -13,8 +13,15 @@ public class miniMax {
     int Row;
     int Col;
     private Board board;
-    public miniMax(Board board) { this.board = miniMax(board); }
-    public Board miniMax(Board board) {
+    public miniMax(Board board) { this.board = getMiniMax(board); }
+
+    public Board getMiniMax(Board currentBoard) {
+        Tree<Board> tree = new Tree(board);
+
+        return null;
+    }
+
+    public Board dminiMax(Board board) {
         Tree<Board> tree = new Tree(board);
         Board play = new Board();
         int max = minimo_Value;

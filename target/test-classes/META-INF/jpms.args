@@ -1,4 +1,0 @@
---patch-module
-espol.minimax=_
---add-reads
-espol.minimax=ALL-UNNAMED
