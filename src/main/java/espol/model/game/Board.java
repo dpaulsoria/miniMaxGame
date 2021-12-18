@@ -41,34 +41,37 @@ public class Board {
                 cell.setImage(EMPTY);
                 tmp.addLast(cell);
                 cell.setOnMouseClicked(e -> {
-                    if (!cell.isSelected()) {
-                        cell.setSelected(true);
-                        cell.setC(player);
-                        cell.setImage((player.equals('X') ? X:O));
-                        for(Map.Entry<Integer, ArrayList<Cell>> par: map.entrySet()){
-                            for(Cell c:par.getValue()){
-                                System.out.println(c);
-                            }
-                        }
-                        utility =  gg.utilityFunction();
-                        System.out.println("--> Utility: " + utility);
-                        boolean b = gg.checkGame(player);
-                        System.out.println("Check game: " + b);
-                        if (b) gg.setWinner(player);
-                        //miniMax nextMove = new miniMax(this);
-                        if (!checkBoardFull()) gg.botTurn();
-                     }
+                    cellClicked(cell);
                 });
 
                 grid.add(cell, j, i);
             }
             map.put(i,tmp);
         }
+        setGridStyles(grid);
+    }
+
+    public void setGridStyles(GridPane grid) {
         grid.setAlignment(Pos.CENTER);
         grid.setStyle(borderStyles);
         grid.setPrefSize(SIZE-10,SIZE);
         grid.setMinSize(SIZE-10,SIZE);
         grid.setMaxSize(SIZE-10,SIZE);
+    }
+
+    public void cellClicked(Cell cell) {
+        if (!cell.isSelected()) {
+            cell.setSelected(true);
+            cell.setC(player);
+            cell.setImage((player.equals('X') ? X:O));
+            utility =  gg.utilityFunction();
+            System.out.println("--> Utility: " + utility);
+            boolean b = gg.checkGame(player);
+            System.out.println("Check game: " + b);
+            if (b) gg.setWinner(player);
+            //miniMax nextMove = new miniMax(this);
+            if (!checkBoardFull()) gg.botTurn();
+        }
     }
 
     public void markIn(Pair position, Character c) {

@@ -26,9 +26,16 @@ public class Game {
     public void botTurn() {
         //miniMax nextMove = new miniMax(this.getBoard());
         //this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
+        //time();
         getBoard().markIn(new Pair(1,1), bot);
     }
-    
+    public void time() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public int utilityFunction(){
         int pPlayer=p(board.getMap(),player);
         System.out.println(">" + player + ":" + pPlayer);
@@ -37,14 +44,14 @@ public class Game {
         return pPlayer-pBot;
     }
     
-    public int p(TreeMap<Integer, espol.model.tda.ArrayList<Cell>> tablero, Character c){
+    public int p(TreeMap<Integer, ArrayList<Cell>> tablero, Character c){
         int utilP=0;
         int filas=0;
         int columnas=0;
         int diagonales=0;
-        espol.model.tda.ArrayList<Cell> F0 = tablero.get(0);
-        espol.model.tda.ArrayList<Cell> F1 = tablero.get(1);
-        espol.model.tda.ArrayList<Cell> F2 = tablero.get(2);
+        ArrayList<Cell> F0 = tablero.get(0);
+        ArrayList<Cell> F1 = tablero.get(1);
+        ArrayList<Cell> F2 = tablero.get(2);
         //columnas
         for(int i=0;i<F0.size();i++){
             if((F0.get(i).getC()==c || F0.get(i).getC()==EMPTY_CHAR) && (F1.get(i).getC()==c || F1.get(i).getC()==EMPTY_CHAR) && (F2.get(i).getC()==c || F2.get(i).getC()==EMPTY_CHAR)){
@@ -54,7 +61,7 @@ public class Game {
         System.out.println("    " + columnas);
         //filas
         int tmp=0;
-        for(Map.Entry<Integer, espol.model.tda.ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
+        for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
             tmp=0;                
             espol.model.tda.ArrayList<Cell> array=par.getValue();
                     for(int i=0;i<array.size();i++){
