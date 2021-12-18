@@ -1,15 +1,11 @@
 package espol.model.game;
 
-import espol.model.tda.ArrayList;
-import static espol.model.game.Utilitaria.*;
-
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
 import java.io.FileInputStream;
-import java.util.Map;
-import java.util.Random;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Board {
@@ -26,7 +22,6 @@ public class Board {
     private int utility;
     private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
 
-    public Board() {}
     public Board(Character p, Game g) {
         setBasicsOptions();
         grid = new GridPane();
@@ -39,7 +34,7 @@ public class Board {
             for (int j = 0; j<3; j++) {
                 Cell cell = new Cell(new Pair(i, j), false);
                 cell.setImage(EMPTY);
-                tmp.addLast(cell);
+                tmp.add(cell);
                 cell.setOnMouseClicked(e -> {
                     cellClicked(cell);
                 });
@@ -69,7 +64,7 @@ public class Board {
             boolean b = gg.checkGame(player);
             System.out.println("Check game: " + b);
             if (b) gg.setWinner(player);
-            //miniMax nextMove = new miniMax(this);
+            miniMax nextMove = new miniMax(this);
             if (!checkBoardFull()) gg.botTurn();
         }
     }
@@ -78,17 +73,6 @@ public class Board {
         map.get(position.x).get(position.y).setC(c);
         map.get(position.x).get(position.y).setSelected(true);
         map.get(position.x).get(position.y).setImage((c.equals('X') ? X:O));
-    }
-    public void clone(Board board) {
-        this.bot = board.getBot();
-        this.grid = board.getGrid();
-        this.player = board.getPlayer();
-        this.gg = board.getGg();
-        this.X = board.getX();
-        this.O = board.getO();
-        this.EMPTY = board.getEMPTY();
-        this.map = board.getMap();
-        this.utility = board.getUtility();
     }
 
     private void setBasicsOptions() {
@@ -113,6 +97,11 @@ public class Board {
         }
         return false;
     }
+
+    public TreeMap<Integer, ArrayList<Cell>> copyMap() {
+        return null;
+    }
+
     public void setUtility(int u) { this.utility = u; }
     public int getUtility() { return utility; }
     public GridPane getGrid() { return grid; }

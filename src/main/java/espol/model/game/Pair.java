@@ -5,4 +5,8 @@ public class Pair {
     public Pair(int x, int y) { this.x = x; this. y = y; }
     public boolean equals(Pair p) { return (x == p.x && y == p.y); }
     public String toString() { return x +", " + y; }
+
+    public Pair clone() {
+        return new Pair(x, y);
+    }
 }

@@ -1,9 +1,8 @@
 package espol.model.game;
 
-import espol.model.tda.ArrayList;
 import espol.model.tda.Tree;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class miniMax {
@@ -17,18 +16,20 @@ public class miniMax {
 
     public Board getMiniMax(Board currentBoard) {
         Tree<Board> tree = new Tree(board);
-        Board newPlay = new Board();
         int max = minimo_Value;
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
-                Board child = new Board();
-                child.clone(board);
+                System.out.println(nextMoves(currentBoard));
             }
         }
 
         return null;
     }
 
+    private ArrayList<TreeMap<Integer, ArrayList<Cell>>> nextMoves(Board currentBoard) {
+        return null;
+    }
+    /*
     public Board dminiMax(Board board) {
         Tree<Board> tree = new Tree(board);
         Board play = new Board();
@@ -68,4 +69,5 @@ public class miniMax {
         }
         return play;
     }
+    */
 }

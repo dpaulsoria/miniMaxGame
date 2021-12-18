@@ -1,8 +1,8 @@
 package espol.model.game;
 
-import espol.model.tda.ArrayList;
 import espol.model.tda.Tree;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -63,7 +63,7 @@ public class Game {
         int tmp=0;
         for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
             tmp=0;                
-            espol.model.tda.ArrayList<Cell> array=par.getValue();
+            ArrayList<Cell> array=par.getValue();
                     for(int i=0;i<array.size();i++){
                         if(array.get(i).getC()==c || array.get(i).getC()==EMPTY_CHAR)
                             tmp++;                  
@@ -88,25 +88,36 @@ public class Game {
     public boolean checkIfBotWin() { return checkGame(bot); }
     public boolean checkIfPlayerWin() { return checkGame(player); }
 
-    public boolean checkGame(Character c) {
-        // Validar filas
-        for (int x = 0; x<3; x++) {
-            for (int y = 0; y<3; y++) {
-                if (board.getMap().get(x).get(y).getC().equals(c)) return true;
+    public boolean checkGame(Character c){
+        TreeMap<Integer, ArrayList<Cell>> tablero = board.getMap();
+        ArrayList<Cell> F0 = tablero.get(0);
+        ArrayList<Cell> F1 = tablero.get(1);
+        ArrayList<Cell> F2 = tablero.get(2);
+        //columnas
+        for(int i=0;i<F0.size();i++){
+            if((F0.get(i).getC()==c) && (F1.get(i).getC()==c) && (F2.get(i).getC()==c)){
+                return true;
             }
         }
-        // Validar columnas
-        for (int y = 0; y<3; y++) {
-            for (int x = 0; x<3; x++) {
-                if (board.getMap().get(x).get(y).getC().equals(c)) return true;
+        //filas
+        int tmp=0;
+        for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
+            tmp=0;
+            ArrayList<Cell> array=par.getValue();
+            for(int i=0;i<array.size();i++){
+                if(array.get(i).getC()==c)
+                    tmp++;
+            }
+            if(tmp==3){
+                return true;
             }
         }
-        // Validar diagonales
-        for (int i = 0; i<3; i++) {
-            if (board.getMap().get(i).get(i).getC().equals(c)) return true;
+        //diagonales
+        if((F0.get(0).getC()==c ) && (F1.get(1).getC()==c) && (F2.get(2).getC()==c)){
+            return true;
         }
-        for (int i = 2; i>-1; i--) {
-            if (board.getMap().get(i).get(i).getC().equals(c)) return true;
+        else if((F0.get(2).getC()==c ) && (F1.get(1).getC()==c ) && (F2.get(0).getC()==c)){
+            return true;
         }
         return false;
     }

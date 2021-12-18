@@ -4,7 +4,7 @@
  */
 package espol.model.game;
 
-import espol.model.tda.ArrayList;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +19,7 @@ public class Utilitaria {
         for(Map.Entry<Integer, ArrayList<Cell>> par: mapa.entrySet()){
             for(Cell c:par.getValue()){
                 if(c.getC().equals('n')){
-                    nulls.addLast(c.getPosition());
+                    nulls.add(c.getPosition());
                 }
             }
         }
