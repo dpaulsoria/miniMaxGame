@@ -3,6 +3,7 @@ package espol.controller;
 import espol.model.game.Board;
 import espol.model.game.Cell;
 import espol.model.game.Game;
+import espol.model.game.miniMax;
 import espol.startGame.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,12 +49,18 @@ public class BoardController implements Initializable {
     }
     @FXML
     protected void newGame() {
-        /*
-        ObservableList<Node> list = grid.getChildren();
-        list.forEach(e -> {
-            System.out.println(((Cell)e).toString());
-        });
-        */
+        ArrayList<TreeMap<Integer, ArrayList<Cell>>> tmp = miniMax.getNextMoves(board.getMap(), player);
+        System.out.println("New Game " + tmp.size());
+        for (int i = 0; i<tmp.size(); i++) {
+            TreeMap<Integer, ArrayList<Cell>> map = tmp.get(i);
+            map.forEach((k, v) -> {
+                System.out.println("Clave: " + k);
+                v.forEach((v1) -> {
+                    System.out.println("    " + v1);
+                });
+            });
+            System.out.println();
+        }
     }
     protected void clearTable() { board.clear(); }
     @FXML

@@ -19,15 +19,36 @@ public class miniMax {
         int max = minimo_Value;
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
-                System.out.println(nextMoves(currentBoard));
+
             }
         }
-
         return null;
     }
 
-    private ArrayList<TreeMap<Integer, ArrayList<Cell>>> nextMoves(Board currentBoard) {
-        return null;
+    public static ArrayList<TreeMap<Integer, ArrayList<Cell>>> getNextMoves(TreeMap<Integer, ArrayList<Cell>> map, Character c) {
+        ArrayList<TreeMap<Integer, ArrayList<Cell>>> result = new ArrayList<>();
+        TreeMap<Integer, ArrayList<Cell>> tmp = Board.cloneMap(map);
+        System.out.println("Get next Moves " + Board.countNulls(tmp));
+        for (int i = 0; i<Board.countNulls(tmp); i++) {
+            tmp = nextMove(tmp, c);
+            result.add(tmp);
+        }
+        return result;
+    }
+    private static TreeMap<Integer, ArrayList<Cell>> nextMove(TreeMap<Integer, ArrayList<Cell>> map1, Character c) {
+        TreeMap<Integer, ArrayList<Cell>> map = Board.cloneMap(map1);
+        ArrayList<Pair> nulls = Board.getNullPairs(map);
+        System.out.println("Nulls pair");
+        nulls.forEach((v) -> {
+            System.out.println("    " + v);
+        });
+        Pair currentNull;
+        System.out.println("Nulls size: " + nulls.size());
+        if (nulls.size() != 0) {
+            currentNull = nulls.get(0);
+            map.get(currentNull.x).get(currentNull.y).setC(c);
+        }
+        return map;
     }
     /*
     public Board dminiMax(Board board) {

@@ -1,5 +1,6 @@
 package Testing;
 
+import espol.model.game.Board;
 import espol.model.game.Cell;
 import espol.model.game.Pair;
 import Testing.Persona;
@@ -18,9 +19,6 @@ public class Main {
             }
             map.put(i, tmp);
         }
-        System.out.println(map);
-        System.out.println();
-        System.out.println(cloneMap(map));
     }
 
     public static TreeMap<Integer, ArrayList<Persona>> cloneMap(TreeMap<Integer, ArrayList<Persona>> map) {

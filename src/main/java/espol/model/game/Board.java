@@ -1,5 +1,6 @@
 package espol.model.game;
 
+import Testing.Persona;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -38,7 +39,7 @@ public class Board {
                 cell.setOnMouseClicked(e -> {
                     cellClicked(cell);
                 });
-
+                cell.setStyle(borderStyles);
                 grid.add(cell, j, i);
             }
             map.put(i,tmp);
@@ -98,7 +99,7 @@ public class Board {
         return false;
     }
 
-    public TreeMap<Integer, ArrayList<Cell>> cloneMap() {
+    public static TreeMap<Integer, ArrayList<Cell>> cloneMap(TreeMap<Integer, ArrayList<Cell>> map) {
         TreeMap<Integer, ArrayList<Cell>> newMap = new TreeMap<>();
         for (int i = 0; i<3; i++) {
             ArrayList<Cell> tmp = new ArrayList<>();
@@ -110,6 +111,26 @@ public class Board {
             newMap.put(i, tmp);
         }
         return newMap;
+    }
+
+    public static int countNulls(TreeMap<Integer, ArrayList<Cell>> map) {
+        int nulls = 0;
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                if (map.get(i).get(j).getC().equals(EMPTY_CHAR)) nulls++;
+            }
+        }
+        return nulls;
+    }
+
+    public static ArrayList<Pair> getNullPairs(TreeMap<Integer, ArrayList<Cell>> map) {
+        ArrayList<Pair> nulls = new ArrayList<>();
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                if (map.get(i).get(j).getC().equals(EMPTY_CHAR)) nulls.add(map.get(i).get(j).getPosition());
+            }
+        }
+        return nulls;
     }
 
     public void setUtility(int u) { this.utility = u; }
