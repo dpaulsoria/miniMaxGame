@@ -9,8 +9,5 @@ espol\model\game\State.class
 espol\controller\BoardController.class
 espol\model\game\Board.class
 espol\model\game\Game.class
-espol\model\tda\BinaryTree.class
-espol\model\tda\BinaryTree$levelIterator.class
 espol\controller\HelloController.class
-espol\model\tda\BinaryNode.class
 espol\model\tda\List.class

@@ -3,6 +3,7 @@ package espol.controller;
 import espol.model.game.Board;
 import espol.model.game.Cell;
 import espol.model.game.Game;
+import espol.model.tda.ArrayList;
 import espol.startGame.App;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import javafx.scene.layout.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 public class BoardController implements Initializable{
     @FXML
@@ -30,6 +32,10 @@ public class BoardController implements Initializable{
     private Game gg;
     private Board board;
     private Character player = 'n';
+    @FXML
+    private VBox vh;
+    @FXML
+    private Button newGameButton;
 
     public void setGame(Game g) {
         gg = g;
@@ -40,6 +46,7 @@ public class BoardController implements Initializable{
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
         if (!gg.isPlayerBegins()) gg.botTurn();
+        printMap(board.getMap());
     }
     @FXML
     protected void newGame() {
@@ -50,7 +57,6 @@ public class BoardController implements Initializable{
         });
         */
     }
-    @FXML
     protected void clearTable() { board.clear(); }
     @FXML
     protected void giveUp() {
@@ -75,4 +81,20 @@ public class BoardController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
+    
+    public void printMap(TreeMap<Integer, ArrayList<Cell>> map){
+        GridPane gp = new GridPane();
+        for(int i=0; i<3;i++){
+            for(int j=0; j<3;j++){
+                Cell tmp = map.get(i).get(j);
+                Cell tmpn = new Cell(tmp.getPosition(),true);
+                tmpn.setImage(tmp.getImage());
+                tmpn.setFitHeight(80);
+                tmpn.setFitWidth(80);
+                gp.add(tmpn, j, i);
+            }
+        }  
+        gp.setAlignment(Pos.CENTER);
+        vh.getChildren().add(gp);
+    }
 }
