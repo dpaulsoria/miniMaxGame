@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
-public class BoardController implements Initializable{
+public class BoardController implements Initializable {
     @FXML
     private Label markLabel;
     @FXML

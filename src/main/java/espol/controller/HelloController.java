@@ -46,6 +46,7 @@ public class HelloController implements Initializable {
         playerMark = 'n';
         titleLabel.setText("Choose");
         playerBegins = false;
+        botRadioButton.setSelected(true);
     }
     @FXML
     protected void startGame() {
