@@ -17,6 +17,14 @@ public class miniMax {
 
     public Board getMiniMax(Board currentBoard) {
         Tree<Board> tree = new Tree(board);
+        Board newPlay = new Board();
+        int max = minimo_Value;
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                Board child = new Board();
+                child.clone(board);
+            }
+        }
 
         return null;
     }

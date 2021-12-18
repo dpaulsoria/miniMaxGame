@@ -77,14 +77,15 @@ public class Board {
         map.get(position.x).get(position.y).setImage((c.equals('X') ? X:O));
     }
     public void clone(Board board) {
-        this.bot = board.bot;
+        this.bot = board.getBot();
         this.grid = board.getGrid();
-        this.player = board.player;
-        this.gg = board.gg;
-        this.X = board.X;
-        this.O = board.O;
-        this.EMPTY = board.EMPTY;
-        this.map = board.map;
+        this.player = board.getPlayer();
+        this.gg = board.getGg();
+        this.X = board.getX();
+        this.O = board.getO();
+        this.EMPTY = board.getEMPTY();
+        this.map = board.getMap();
+        this.utility = board.getUtility();
     }
 
     private void setBasicsOptions() {
