@@ -18,7 +18,7 @@ public class Board {
     private Character bot;
     public static final Character EMPTY_CHAR = 'n';
     private Game gg;
-    private final String borderStyles = "-fx-border-color: black; -fx-border-width: 2px;";
+    private final String borderStyles = "-fx-border-color: #0d2c6b; -fx-border-width: 2px;";
     private Image X;
     private Image O;
     private Image EMPTY;
