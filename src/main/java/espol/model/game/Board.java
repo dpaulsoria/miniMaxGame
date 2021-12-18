@@ -98,8 +98,18 @@ public class Board {
         return false;
     }
 
-    public TreeMap<Integer, ArrayList<Cell>> copyMap() {
-        return null;
+    public TreeMap<Integer, ArrayList<Cell>> cloneMap() {
+        TreeMap<Integer, ArrayList<Cell>> newMap = new TreeMap<>();
+        for (int i = 0; i<3; i++) {
+            ArrayList<Cell> tmp = new ArrayList<>();
+            for (int j = 0; j<3; j++) {
+                Cell newCell = new Cell(map.get(i).get(j).getPosition().clone(), map.get(i).get(j).isSelected());
+                newCell.setC(map.get(i).get(j).getC());
+                tmp.add(newCell);
+            }
+            newMap.put(i, tmp);
+        }
+        return newMap;
     }
 
     public void setUtility(int u) { this.utility = u; }
