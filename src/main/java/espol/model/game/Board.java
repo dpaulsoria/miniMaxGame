@@ -114,6 +114,12 @@ public class Board {
         return newMap;
     }
 
+    public static Board clone(Board board) {
+        Board b = new Board(board.player, Game.cloneGG(board.gg));
+        b.setMap(Board.cloneMap(board.getMap()));
+        return b;
+    }
+
     public static int countNulls(TreeMap<Integer, ArrayList<Cell>> map) {
         int nulls = 0;
         for (int i = 0; i<3; i++) {
@@ -132,6 +138,19 @@ public class Board {
             }
         }
         return nulls;
+    }
+
+    public boolean equals(Board board) {
+        return !player.equals(board.player) || !bot.equals(board.bot) || utility != board.getUtility() || MapEquals(map, board.getMap());
+    }
+
+    private boolean MapEquals(TreeMap<Integer, ArrayList<Cell>> map1, TreeMap<Integer, ArrayList<Cell>> map2) {
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                if (!map1.get(i).get(j).equals(map2.get(i).get(j))) return false;
+            }
+        }
+        return true;
     }
 
     public void setUtility(int u) { this.utility = u; }

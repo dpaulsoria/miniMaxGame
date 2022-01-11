@@ -85,6 +85,9 @@ public class Game {
         return utilP;
     }
 
+    public static Game cloneGG(Game gg) {
+        return new Game(gg.player, gg.isPlayerBegins());
+    }
     public boolean checkIfBotWin() { return checkGame(bot); }
     public boolean checkIfPlayerWin() { return checkGame(player); }
 
