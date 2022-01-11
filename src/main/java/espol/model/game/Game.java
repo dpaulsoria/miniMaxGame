@@ -121,6 +121,51 @@ public class Game {
         }
         return false;
     }
+    
+    public void printBoard(){
+        TreeMap<Integer, ArrayList<Cell>> tablero = board.getMap();
+        ArrayList<Cell> F0 = tablero.get(0);
+        ArrayList<Cell> F1 = tablero.get(1);
+        ArrayList<Cell> F2 = tablero.get(2);
+        ArrayList<Character> F0P= new ArrayList<>();
+        ArrayList<Character> F1P= new ArrayList<>();
+        ArrayList<Character> F2P= new ArrayList<>();
+        for(int i=0;i<F0.size();i++){
+            if(F0.get(i).getC()==EMPTY_CHAR){
+                F0P.add('-');
+            }
+            else{
+                Character tmpC=F0.get(i).getC();
+                F0P.add(tmpC);
+            }
+        }
+        for(int i=0;i<F1.size();i++){
+            if(F1.get(i).getC()==EMPTY_CHAR){
+                F1P.add('-');
+            }
+            else{
+                Character tmpC=F1.get(i).getC();
+                F1P.add(tmpC);
+            
+            }
+        }
+        for(int i=0;i<F2.size();i++){
+            if(F2.get(i).getC()==EMPTY_CHAR){
+                F2P.add('-');
+            }
+            else{
+                Character tmpC=F2.get(i).getC();
+                F2P.add(tmpC);
+            
+            }
+        }
+       
+        System.out.println(F0P.get(0)+" "+ F0P.get(1)+" "+ F0P.get(2));
+        System.out.println(F1P.get(0)+" "+ F1P.get(1)+" "+ F1P.get(2));
+        System.out.println(F2P.get(0)+" "+ F2P.get(1)+" "+ F2P.get(2));
+    }
+    
+    
 
     public boolean isPlayerTurn() { return playerTurn; }
     public void setPlayerturn(Boolean b) { this.playerTurn = b; }

@@ -64,6 +64,7 @@ public class Board {
             System.out.println("--> Utility: " + utility);
             boolean b = gg.checkGame(player);
             System.out.println("Check game: " + b);
+            gg.printBoard();
             if (b) gg.setWinner(player);
             miniMax nextMove = new miniMax(this);
             if (!checkBoardFull()) gg.botTurn();

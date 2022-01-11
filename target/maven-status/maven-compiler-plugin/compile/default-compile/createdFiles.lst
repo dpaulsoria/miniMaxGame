@@ -1,7 +1,5 @@
 espol\model\game\miniMax.class
 espol\model\game\Cell.class
-espol\model\tda\ArrayList.class
-espol\model\tda\ArrayList$1.class
 espol\model\game\Pair.class
 module-info.class
 espol\startGame\App.class
@@ -10,4 +8,3 @@ espol\controller\BoardController.class
 espol\model\game\Board.class
 espol\model\game\Game.class
 espol\controller\HelloController.class
-espol\model\tda\List.class
