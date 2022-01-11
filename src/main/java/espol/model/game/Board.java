@@ -1,6 +1,5 @@
 package espol.model.game;
 
-import Testing.Persona;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
