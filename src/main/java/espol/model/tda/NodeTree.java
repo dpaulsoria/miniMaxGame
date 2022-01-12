@@ -13,6 +13,7 @@ public class NodeTree<T> {
     public NodeTree(T content, List<Tree<T>> hijos) { this.content = content; this.childs = hijos; }
     public T getContent() { return content; }
     public void setContent(T content) { this.content = content; }
+    public List<Tree<T>> getChilds() { return childs; }
     public Tree<T> getChild(int i) { return childs.get(i); }
     public Tree<T> getLastChild() { return childs.get(childs.size()-1); }
     public void addChild(Tree<T> newChild) { this.childs.add(newChild); }

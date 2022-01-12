@@ -1,5 +1,7 @@
 package espol.model.game;
 
+import espol.model.tda.Tree;
+import espol.model.game.Utilitaria;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -21,6 +23,7 @@ public class Board {
     private final double SIZE = 360;
     private int utility;
     private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
+    private Tree<Board> tree;
 
     public Board(Character p, Game g) {
         setBasicsOptions();
@@ -44,6 +47,11 @@ public class Board {
             map.put(i,tmp);
         }
         setGridStyles(grid);
+        tree = Utilitaria.createTree(this, gg.isPlayerBegins() ? player:bot);
+//        tree.getRoot().getContent().getGg().printBoard();
+//        for (Tree<Board> t:tree.getRoot().getChilds()){
+//            t.getRoot().getContent().getGg().printBoard();
+//        }
     }
 
     public void setGridStyles(GridPane grid) {
@@ -53,7 +61,7 @@ public class Board {
         grid.setMinSize(SIZE-10,SIZE);
         grid.setMaxSize(SIZE-10,SIZE);
     }
-
+    
     public void cellClicked(Cell cell) {
         if (!cell.isSelected()) {
             cell.setSelected(true);
