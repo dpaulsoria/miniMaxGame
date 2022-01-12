@@ -47,8 +47,8 @@ public class Board {
         }
         setGridStyles(grid);
         tree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
-        gg.printBoard(tree.getRoot().getContent().getMap());
-        gg.printBoard(tree.getChild(0).getRoot().getContent().getMap());
+//        gg.printBoard(tree.getRoot().getContent().getMap());
+//        gg.printBoard(tree.getChild(0).getRoot().getContent().getMap());
     }
     
 
