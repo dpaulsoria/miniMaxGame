@@ -125,8 +125,7 @@ public class Game {
         return false;
     }
     
-    public void printBoard(){
-        TreeMap<Integer, ArrayList<Cell>> tablero = board.getMap();
+    public void printBoard(TreeMap<Integer, ArrayList<Cell>> tablero){
         ArrayList<Cell> F0 = tablero.get(0);
         ArrayList<Cell> F1 = tablero.get(1);
         ArrayList<Cell> F2 = tablero.get(2);

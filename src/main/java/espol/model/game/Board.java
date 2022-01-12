@@ -23,7 +23,7 @@ public class Board {
     private final double SIZE = 360;
     private int utility;
     private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
-    private Tree<Board> tree;
+    private Tree<Capsule> tree;
 
     public Board(Character p, Game g) {
         grid = new GridPane();
@@ -46,14 +46,11 @@ public class Board {
             map.put(i,tmp);
         }
         setGridStyles(grid);
-        tree = Utilitaria.createTree(this, gg.isPlayerBegins() ? player:bot);
-        tree.getRoot().getContent().getGg().printBoard();
-        tree.getChild(0).getRoot().getContent().getGg().printBoard();
-//        tree.getRoot().getContent().getGg().printBoard();
-//        for (Tree<Board> t:tree.getRoot().getChilds()){
-//            t.getRoot().getContent().getGg().printBoard();
-//        }
+        tree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
+        gg.printBoard(tree.getRoot().getContent().getMap());
+        gg.printBoard(tree.getChild(0).getRoot().getContent().getMap());
     }
+    
 
     public void setGridStyles(GridPane grid) {
         grid.setAlignment(Pos.CENTER);
@@ -72,7 +69,7 @@ public class Board {
             System.out.println("--> Utility: " + utility);
             boolean b = gg.checkGame(player);
             System.out.println("Check game: " + b);
-            gg.printBoard();
+            gg.printBoard(this.getMap());
             if (b) gg.setWinner(player);
             miniMax nextMove = new miniMax(this);
             if (!checkBoardFull()) gg.botTurn();
@@ -112,11 +109,6 @@ public class Board {
         return newMap;
     }
 
-    public static Board clone(Board board) {
-        Board b = new Board(board.player, Game.cloneGG(board.gg));
-        b.setMap(Board.cloneMap(board.getMap()));
-        return b;
-    }
 
     public static int countNulls(TreeMap<Integer, ArrayList<Cell>> map) {
         int nulls = 0;
