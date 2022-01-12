@@ -15,9 +15,11 @@ public class Capsule {
     private TreeMap<Integer, ArrayList<Cell>> map;
     private int utility;
     private int max;
+    private Character c;
 
-    public Capsule(TreeMap<Integer, ArrayList<Cell>> map) {
+    public Capsule(TreeMap<Integer, ArrayList<Cell>> map, Character c) {
         this.map = map;
+        this.c = c;
         utility = 0;
         max = 0;
     }
@@ -44,6 +46,14 @@ public class Capsule {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public Character getC() {
+        return c;
+    }
+
+    public void setC(Character c) {
+        this.c = c;
     }
     
     

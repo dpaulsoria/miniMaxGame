@@ -34,7 +34,7 @@ public class Utilitaria {
 
 
     public static Tree<Capsule> createTree(TreeMap<Integer, ArrayList<Cell>> map, Character c){
-       Capsule cp = new Capsule(map);
+       Capsule cp = new Capsule(map, c.equals('X') ? 'O':'X');
        Tree<Capsule> tmp = new Tree<>(cp);
        ArrayList<Pair> nulls = countNulls(map);
        if(!nulls.isEmpty()){
@@ -43,25 +43,27 @@ public class Utilitaria {
                TreeMap<Integer, ArrayList<Cell>> map1 = Board.cloneMap(map);
                map1.get(position.x).get(position.y).setC(c);
                map1.get(position.x).get(position.y).setSelected(true);
-               Capsule cp1 = new Capsule(map1);
+               Capsule cp1 = new Capsule(map1, c);
                Tree<Capsule> tmp1 = new Tree<>(cp1);
                tmp.addChild(tmp1);
                ArrayList<Pair> nullsc = countNulls(map1);
-               System.out.println("Hijo "+i);
-               printBoard(map1);
+//               System.out.println("Hijo "+i);
+//               printBoard(map1);
                for(int j=0; j<nullsc.size(); j++ ){
                    Pair position1 = nullsc.get(j);
                    TreeMap<Integer, ArrayList<Cell>> map2 = Board.cloneMap(map1);
                    map2.get(position1.x).get(position1.y).setC(c.equals('X') ? 'O':'X');
                    map2.get(position1.x).get(position1.y).setSelected(true);
-                   Capsule cp2 = new Capsule(map2);
+                   Capsule cp2 = new Capsule(map2, c.equals('X') ? 'O':'X');
                    Tree<Capsule> tmp2 = new Tree<>(cp2);
                    tmp1.addChild(tmp2);
-                   System.out.println("Nieto "+j);
-                   printBoard(map2);
+//                   System.out.println("Nieto "+j);
+//                   printBoard(map2);
                }
            }
        }
+       setUtilities(tmp);
+//       printBoard(tmp.getChild(0).getRoot().getContent().getMap());
        return tmp;
     }
     
@@ -107,11 +109,71 @@ public class Utilitaria {
         System.out.println(F2P.get(0)+" "+ F2P.get(1)+" "+ F2P.get(2));
     }
     
-//    public static void setUtilities(Tree<Board> board){
-//        board.getRoot().getContent().setUtility(board.getRoot().getContent().getGg().utilityFunction());
-//        for(Tree<Board> tree:board.getRoot().getChilds())){
-//            setUtilities(tree);
+    public static void setUtilities(Tree<Capsule> tree){
+//        printBoard(tree.getRoot().getContent().getMap());
+//        tree.getRoot().getContent().setUtility(utilityFunction(tree.getRoot().getContent().getMap(), tree.getRoot().getContent().getC()));
+//        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
+//            if(!tree1.getRoot().getChildren().isEmpty()){
+//                setUtilities(tree1);
+//            }  
 //        }
-//    }
+        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
+            for(Tree<Capsule> tree2:tree1.getRoot().getChildren()){
+                printBoard(tree2.getRoot().getContent().getMap());
+                tree2.getRoot().getContent().setUtility(utilityFunction(tree2.getRoot().getContent().getMap(), tree2.getRoot().getContent().getC().equals('X') ? 'O':'X'));
+                System.out.println(tree2.getRoot().getContent().getUtility());
+            }
+        }
+    }
+    
+    public static int utilityFunction(TreeMap<Integer, ArrayList<Cell>> tablero, Character c){
+        int pPlayer=p(tablero,c);
+        System.out.println(">" + c + ":" + pPlayer);
+        int pBot=p(tablero,c.equals('X') ? 'O':'X');
+        System.out.println(">" + (c.equals('X') ? 'O':'X') + ":" + pBot);
+        return pPlayer-pBot;
+    }
+    
+    public static int p(TreeMap<Integer, ArrayList<Cell>> tablero, Character c){
+        int utilP=0;
+        int filas=0;
+        int columnas=0;
+        int diagonales=0;
+        ArrayList<Cell> F0 = tablero.get(0);
+        ArrayList<Cell> F1 = tablero.get(1);
+        ArrayList<Cell> F2 = tablero.get(2);
+        //columnas
+        for(int i=0;i<F0.size();i++){
+            if((F0.get(i).getC()==c || F0.get(i).getC()=='n') && (F1.get(i).getC()==c || F1.get(i).getC()=='n') && (F2.get(i).getC()==c || F2.get(i).getC()=='n')){
+                columnas++;
+                }
+        }
+        System.out.println("    " + columnas);
+        //filas
+        int tmp=0;
+        for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
+            tmp=0;                
+            ArrayList<Cell> array=par.getValue();
+                    for(int i=0;i<array.size();i++){
+                        if(array.get(i).getC()==c || array.get(i).getC()=='n')
+                            tmp++;                  
+                    } 
+            if(tmp==3){
+            filas++;
+            }
+        }
+        System.out.println("    " + filas);
+        //diagonales 
+        if((F0.get(0).getC()==c || F0.get(0).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(2).getC()==c || F2.get(2).getC()=='n')){
+            diagonales++;
+        }        
+        if((F0.get(2).getC()==c || F0.get(2).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(0).getC()==c || F2.get(0).getC()=='n')){
+            diagonales++;
+        }
+        System.out.println("    " + diagonales);
+        utilP=filas+columnas+diagonales;                    
+        return utilP;
+    }
+    
    
 }
