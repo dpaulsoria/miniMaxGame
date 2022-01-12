@@ -1,6 +1,7 @@
 package espol.startGame;
 
 import espol.model.game.Game;
+import espol.model.game.Images;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stg) throws IOException {
+        Images img = new Images();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("hello-view.fxml"));
         scene = new Scene(fxmlLoader.load(), height, width);
         stage = stg;

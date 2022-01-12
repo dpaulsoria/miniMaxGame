@@ -17,16 +17,15 @@ public class Board {
     public static final Character EMPTY_CHAR = 'n';
     private Game gg;
     private final String borderStyles = "-fx-border-color: #0d2c6b; -fx-border-width: 2px;";
-    private Image X;
-    private Image O;
-    private Image EMPTY;
+    private Image X = Images.X;
+    private Image O = Images.O;
+    private Image EMPTY = Images.EMPTY;
     private final double SIZE = 360;
     private int utility;
     private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
     private Tree<Board> tree;
 
     public Board(Character p, Game g) {
-        setBasicsOptions();
         grid = new GridPane();
         gg = g;
         gg.setBoard(this);
@@ -48,6 +47,8 @@ public class Board {
         }
         setGridStyles(grid);
         tree = Utilitaria.createTree(this, gg.isPlayerBegins() ? player:bot);
+        tree.getRoot().getContent().getGg().printBoard();
+        tree.getChild(0).getRoot().getContent().getGg().printBoard();
 //        tree.getRoot().getContent().getGg().printBoard();
 //        for (Tree<Board> t:tree.getRoot().getChilds()){
 //            t.getRoot().getContent().getGg().printBoard();
@@ -82,16 +83,6 @@ public class Board {
         map.get(position.x).get(position.y).setC(c);
         map.get(position.x).get(position.y).setSelected(true);
         map.get(position.x).get(position.y).setImage((c.equals('X') ? X:O));
-    }
-
-    private void setBasicsOptions() {
-        try {
-            X = new Image(new FileInputStream("src/img/X.png"));
-            O = new Image(new FileInputStream("src/img/O.png"));
-            EMPTY = new Image(new FileInputStream("src/img/circle.png"));
-        } catch(Exception e) {
-            System.out.println(e.toString());
-        }
     }
 
     public void clear() { grid.getChildren().clear(); }

@@ -5,10 +5,13 @@
 package espol.model.game;
 
 import espol.model.tda.Tree;
+
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import espol.model.game.Board;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -28,20 +31,26 @@ public class Utilitaria {
         
         return nulls;
     }
+
+
     public static Tree<Board> createTree(Board board, Character c){
        Tree<Board> tmp = new Tree<>(board);
        ArrayList<Pair> nulls = countNulls(board.getMap());
+       Pair pos;
+       System.out.println(nulls);
        if(!nulls.isEmpty()){
-           for(int i=0; i<nulls.size(); i++){
-               Pair position = nulls.get(i);
+           for(int i=0; i<5; i++){
+               pos = nulls.get(i);
                Board btmp = Board.clone(board);
-               btmp.markIn(position, c);
-               Tree<Board> tmp1 = createTree(btmp, c.equals('X') ? 'O':'X');
-               tmp.addChild(tmp1);
+               btmp.markIn(pos, c);
+               System.out.println("To mark in:" + pos);
+               btmp.getGg().printBoard();
+               //Tree<Board> tmp1 = createTree(btmp, c.equals('X') ? 'O':'X');
+               tmp.addChild(new Tree<>(btmp));
            }
        }
        return tmp;
-   }
+    }
     
 //    public static void setUtilities(Tree<Board> board){
 //        board.getRoot().getContent().setUtility(board.getRoot().getContent().getGg().utilityFunction());

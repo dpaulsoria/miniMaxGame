@@ -6,17 +6,17 @@ import java.util.List;
 public class NodeTree<T> {
 
     private T content;
-    private List<Tree<T>> childs;
+    private List<Tree<T>> children;
 
     public NodeTree() { this(null, new ArrayList<Tree<T>>()); }
     public NodeTree(T content) { this(content, new ArrayList<Tree<T>>()); }
-    public NodeTree(T content, List<Tree<T>> hijos) { this.content = content; this.childs = hijos; }
+    public NodeTree(T content, List<Tree<T>> hijos) { this.content = content; this.children = hijos; }
     public T getContent() { return content; }
     public void setContent(T content) { this.content = content; }
-    public List<Tree<T>> getChilds() { return childs; }
-    public Tree<T> getChild(int i) { return childs.get(i); }
-    public Tree<T> getLastChild() { return childs.get(childs.size()-1); }
-    public void addChild(Tree<T> newChild) { this.childs.add(newChild); }
-    public int childsSize(){ return childs.size(); }
-    public boolean isLeaf(){ return childs.isEmpty(); }
+    public List<Tree<T>> getChildren() { return children; }
+    public Tree<T> getChild(int i) { return children.get(i); }
+    public Tree<T> getLastChild() { return children.get(children.size()-1); }
+    public void addChild(Tree<T> newChild) { this.children.add(newChild); }
+    public int childrenSize(){ return children.size(); }
+    public boolean isLeaf(){ return children.isEmpty(); }
 }
