@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import espol.model.game.Board;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import javafx.scene.image.Image;
 
 /**
@@ -63,6 +65,7 @@ public class Utilitaria {
            }
        }
        setUtilities(tmp);
+       setMax(tmp);
 //       printBoard(tmp.getChild(0).getRoot().getContent().getMap());
        return tmp;
     }
@@ -119,18 +122,18 @@ public class Utilitaria {
 //        }
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
             for(Tree<Capsule> tree2:tree1.getRoot().getChildren()){
-                printBoard(tree2.getRoot().getContent().getMap());
+//                printBoard(tree2.getRoot().getContent().getMap());
                 tree2.getRoot().getContent().setUtility(utilityFunction(tree2.getRoot().getContent().getMap(), tree2.getRoot().getContent().getC().equals('X') ? 'O':'X'));
-                System.out.println(tree2.getRoot().getContent().getUtility());
+//                System.out.println(tree2.getRoot().getContent().getUtility());
             }
         }
     }
     
     public static int utilityFunction(TreeMap<Integer, ArrayList<Cell>> tablero, Character c){
         int pPlayer=p(tablero,c);
-        System.out.println(">" + c + ":" + pPlayer);
+//        System.out.println(">" + c + ":" + pPlayer);
         int pBot=p(tablero,c.equals('X') ? 'O':'X');
-        System.out.println(">" + (c.equals('X') ? 'O':'X') + ":" + pBot);
+//        System.out.println(">" + (c.equals('X') ? 'O':'X') + ":" + pBot);
         return pPlayer-pBot;
     }
     
@@ -148,7 +151,7 @@ public class Utilitaria {
                 columnas++;
                 }
         }
-        System.out.println("    " + columnas);
+//        System.out.println("    " + columnas);
         //filas
         int tmp=0;
         for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
@@ -162,7 +165,7 @@ public class Utilitaria {
             filas++;
             }
         }
-        System.out.println("    " + filas);
+//        System.out.println("    " + filas);
         //diagonales 
         if((F0.get(0).getC()==c || F0.get(0).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(2).getC()==c || F2.get(2).getC()=='n')){
             diagonales++;
@@ -170,10 +173,28 @@ public class Utilitaria {
         if((F0.get(2).getC()==c || F0.get(2).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(0).getC()==c || F2.get(0).getC()=='n')){
             diagonales++;
         }
-        System.out.println("    " + diagonales);
+//        System.out.println("    " + diagonales);
         utilP=filas+columnas+diagonales;                    
         return utilP;
     }
     
+   public static void setMax(Tree<Capsule> tree){
+        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
+           tree1.getRoot().getContent().setMax(getMaxT(tree1));
+           printBoard(tree1.getRoot().getContent().getMap());
+           System.out.println(tree1.getRoot().getContent().getMax());
+       }
+   }
    
+   public static int getMaxT(Tree<Capsule> tree){
+       int max = 0;
+       Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> {return i1.getUtility()-i2.getUtility();};
+       PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
+       for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
+           q.offer(tree1.getRoot().getContent());
+       }       
+       max = q.poll().getUtility();
+       System.out.println(max);
+       return max;
+   }
 }
