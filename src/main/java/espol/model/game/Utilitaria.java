@@ -66,7 +66,10 @@ public class Utilitaria {
        }
        setUtilities(tmp);
        setMax(tmp);
-//       printBoard(tmp.getChild(0).getRoot().getContent().getMap());
+       Capsule c1 = getMaxN(tmp);
+       System.out.println("mejor jugada");
+       printBoard(c1.getMap());
+       System.out.println(c1.getMax());
        return tmp;
     }
     
@@ -194,7 +197,17 @@ public class Utilitaria {
            q.offer(tree1.getRoot().getContent());
        }       
        max = q.poll().getUtility();
-       System.out.println(max);
        return max;
+   }
+   
+   public static Capsule getMaxN(Tree<Capsule> tree){
+       Capsule c = new Capsule();
+       Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> {return i2.getMax()-i1.getMax();};
+       PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
+       for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
+           q.offer(tree1.getRoot().getContent());
+       }       
+       c = q.poll();
+       return c;
    }
 }

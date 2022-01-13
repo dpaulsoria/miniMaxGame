@@ -23,6 +23,11 @@ public class Capsule {
         utility = 0;
         max = 0;
     }
+    
+    public Capsule() {
+        utility = 0;
+        max = 0;
+    }
 
     public TreeMap<Integer, ArrayList<Cell>> getMap() {
         return map;
