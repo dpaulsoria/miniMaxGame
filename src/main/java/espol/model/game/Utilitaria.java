@@ -201,8 +201,8 @@ public class Utilitaria {
    }
    
    public static Capsule getMaxN(Tree<Capsule> tree){
-       Capsule c = new Capsule();
-       Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> {return i2.getMax()-i1.getMax();};
+       Capsule c;
+       Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i2.getMax()-i1.getMax();
        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
            q.offer(tree1.getRoot().getContent());

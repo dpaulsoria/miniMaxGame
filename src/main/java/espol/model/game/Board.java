@@ -72,7 +72,7 @@ public class Board {
             if (b) gg.setWinner(player);
             miniMax nextMove = new miniMax(this);
 
-            //if (!checkBoardFull()) gg.botTurn(currentTree);
+            //if (!checkBoardFull()) gg.botTurn(Utilitaria.getMaxN(currentTree));
         }
     }
 
