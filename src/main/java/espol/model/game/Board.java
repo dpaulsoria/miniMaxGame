@@ -1,12 +1,10 @@
 package espol.model.game;
 
 import espol.model.tda.Tree;
-import espol.model.game.Utilitaria;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -23,7 +21,7 @@ public class Board {
     private final double SIZE = 360;
     private int utility;
     private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
-    private Tree<Capsule> tree;
+    private Tree<Capsule> currentTree;
 
     public Board(Character p, Game g) {
         grid = new GridPane();
@@ -46,7 +44,8 @@ public class Board {
             map.put(i,tmp);
         }
         setGridStyles(grid);
-        tree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
+        currentTree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
+        if (!gg.isPlayerBegins()) gg.firstBotTurn(Utilitaria.getMaxN(currentTree).getMap());
 //        gg.printBoard(tree.getRoot().getContent().getMap());
 //        gg.printBoard(tree.getChild(0).getRoot().getContent().getMap());
     }
@@ -72,14 +71,16 @@ public class Board {
             gg.printBoard(this.getMap());
             if (b) gg.setWinner(player);
             miniMax nextMove = new miniMax(this);
-            if (!checkBoardFull()) gg.botTurn();
+
+            //if (!checkBoardFull()) gg.botTurn(currentTree);
         }
     }
 
     public void markIn(Pair position, Character c) {
         map.get(position.x).get(position.y).setC(c);
         map.get(position.x).get(position.y).setSelected(true);
-        map.get(position.x).get(position.y).setImage((c.equals('X') ? X:O));
+        if (c.equals('X') || c.equals('O')) map.get(position.x).get(position.y).setImage((c.equals('X') ? X:O));
+        else map.get(position.x).get(position.y).setImage(EMPTY);
     }
 
     public void clear() { grid.getChildren().clear(); }

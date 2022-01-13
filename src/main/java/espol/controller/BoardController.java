@@ -44,7 +44,6 @@ public class BoardController implements Initializable {
         grid = board.getGrid();
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
-        if (!gg.isPlayerBegins()) gg.botTurn();
         printMap(board.getMap());
     }
     @FXML

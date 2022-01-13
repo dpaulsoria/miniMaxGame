@@ -1,7 +1,6 @@
 package espol.model.game;
 
 import espol.model.tda.Tree;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,11 +22,21 @@ public class Game {
         bot = (player.equals('X') ? 'O':'X');
         playerBegins = ifPlayerBegins;
     }
-    public void botTurn() {
+
+    public void firstBotTurn(TreeMap<Integer, ArrayList<Cell>> map) {
+        printBoard(map);
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                if (map.get(i).get(j).getC().equals(bot)) board.markIn(map.get(i).get(j).getPosition(), bot);
+            }
+        }
+    }
+
+    public void botTurn(Pair position) {
         //miniMax nextMove = new miniMax(this.getBoard());
         //this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
         //time();
-        getBoard().markIn(new Pair(1,1), bot);
+        getBoard().markIn(position, bot);
     }
     public void time() {
         try {
@@ -161,7 +170,6 @@ public class Game {
             
             }
         }
-       
         System.out.println(F0P.get(0)+" "+ F0P.get(1)+" "+ F0P.get(2));
         System.out.println(F1P.get(0)+" "+ F1P.get(1)+" "+ F1P.get(2));
         System.out.println(F2P.get(0)+" "+ F2P.get(1)+" "+ F2P.get(2));
