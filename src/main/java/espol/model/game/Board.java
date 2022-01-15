@@ -36,7 +36,7 @@ public class Board {
                 cell.setImage(EMPTY);
                 tmp.add(cell);
                 cell.setOnMouseClicked(e -> {
-                    cellClicked(cell);
+                    cellClicked(cell, map);
                 });
                 cell.setStyle(borderStyles);
                 grid.add(cell, j, i);
@@ -59,7 +59,7 @@ public class Board {
         grid.setMaxSize(SIZE-10,SIZE);
     }
     
-    public void cellClicked(Cell cell) {
+    public void cellClicked(Cell cell, TreeMap<Integer, ArrayList<Cell>> map) {
         if (!cell.isSelected()) {
             cell.setSelected(true);
             cell.setC(player);
@@ -69,10 +69,16 @@ public class Board {
             boolean b = gg.checkGame(player);
             System.out.println("Check game: " + b);
             gg.printBoard(this.getMap());
-            if (b) gg.setWinner(player);
-            miniMax nextMove = new miniMax(this);
-
-            //if (!checkBoardFull()) gg.botTurn(Utilitaria.getMaxN(currentTree));
+            if (b) {
+                gg.setWinner(player);
+                gg.setGameWon(b);
+                gg.endGame(map);
+            }
+            if(gg.isGameWon()) System.out.println("end game");
+            if(!gg.isGameWon()){
+                currentTree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
+                if (!checkBoardFull()) gg.botTurn(Utilitaria.getMaxN(currentTree).getMap(), map);
+            }
         }
     }
 

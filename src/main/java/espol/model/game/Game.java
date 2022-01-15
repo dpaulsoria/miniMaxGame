@@ -32,11 +32,23 @@ public class Game {
         }
     }
 
-    public void botTurn(Pair position) {
+    public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap) {
         //miniMax nextMove = new miniMax(this.getBoard());
         //this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
         //time();
-        getBoard().markIn(position, bot);
+//        getBoard().markIn(position, bot);
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                if (!(mapJugad.get(i).get(j).getC().equals(currentMap.get(i).get(j).getC()))) board.markIn(currentMap.get(i).get(j).getPosition(), bot);
+            }
+        }
+        boolean b = checkGame(bot);
+        if (b) {
+            setWinner(bot);
+            setGameWon(b);
+            endGame(board.getMap());
+            if(isGameWon()) System.out.println("end game");
+        }
     }
     public void time() {
         try {
@@ -173,6 +185,14 @@ public class Game {
         System.out.println(F0P.get(0)+" "+ F0P.get(1)+" "+ F0P.get(2));
         System.out.println(F1P.get(0)+" "+ F1P.get(1)+" "+ F1P.get(2));
         System.out.println(F2P.get(0)+" "+ F2P.get(1)+" "+ F2P.get(2));
+    }
+    
+    public void endGame( TreeMap<Integer, ArrayList<Cell>> map ){
+        for (int i = 0; i<3; i++) {
+            for (int j = 0; j<3; j++) {
+                if (!map.get(i).get(j).isSelected()) map.get(i).get(j).setSelected(true);
+            }
+        }
     }
     
     

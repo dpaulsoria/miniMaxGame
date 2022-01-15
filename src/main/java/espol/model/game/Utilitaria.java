@@ -66,10 +66,6 @@ public class Utilitaria {
        }
        setUtilities(tmp);
        setMax(tmp);
-       Capsule c1 = getMaxN(tmp);
-       System.out.println("mejor jugada");
-       printBoard(c1.getMap());
-       System.out.println(c1.getMax());
        return tmp;
     }
     
@@ -116,18 +112,9 @@ public class Utilitaria {
     }
     
     public static void setUtilities(Tree<Capsule> tree){
-//        printBoard(tree.getRoot().getContent().getMap());
-//        tree.getRoot().getContent().setUtility(utilityFunction(tree.getRoot().getContent().getMap(), tree.getRoot().getContent().getC()));
-//        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-//            if(!tree1.getRoot().getChildren().isEmpty()){
-//                setUtilities(tree1);
-//            }  
-//        }
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
             for(Tree<Capsule> tree2:tree1.getRoot().getChildren()){
-//                printBoard(tree2.getRoot().getContent().getMap());
                 tree2.getRoot().getContent().setUtility(utilityFunction(tree2.getRoot().getContent().getMap(), tree2.getRoot().getContent().getC().equals('X') ? 'O':'X'));
-//                System.out.println(tree2.getRoot().getContent().getUtility());
             }
         }
     }
@@ -185,7 +172,6 @@ public class Utilitaria {
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
            tree1.getRoot().getContent().setMax(getMaxT(tree1));
            printBoard(tree1.getRoot().getContent().getMap());
-           System.out.println(tree1.getRoot().getContent().getMax());
        }
    }
    
@@ -195,19 +181,19 @@ public class Utilitaria {
        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
            q.offer(tree1.getRoot().getContent());
-       }       
-       max = q.poll().getUtility();
+       }   
+       if(!q.isEmpty()){max = q.poll().getUtility();}
        return max;
    }
    
    public static Capsule getMaxN(Tree<Capsule> tree){
-       Capsule c;
+       Capsule c = new Capsule();
        Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i2.getMax()-i1.getMax();
        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
            q.offer(tree1.getRoot().getContent());
-       }       
-       c = q.poll();
+       }
+       if(!q.isEmpty()){c = q.poll();}       
        return c;
    }
 }
