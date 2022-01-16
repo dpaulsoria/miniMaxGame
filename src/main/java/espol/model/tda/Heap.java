@@ -1,190 +1,241 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
 package espol.model.tda;
 
 import java.util.Comparator;
+//import tree.*;
 
-public class Heap<T> {
-    private Comparator<T> cmp;
-    private T[] array;
-    private int capacity;
+/**
+ *
+ * @author rdavi
+ */
+public class Heap<E> {
+    private Comparator<E> cmp;
+//    private BinaryTree<E> tree;
+    private E[] elements;
+    private int capacity = 100;
     private int effectiveSize;
     private boolean isMax;
-
-    public Heap(int max, Comparator<T> c, boolean b) {
-        cmp = c;
-        capacity =  max;
-        array = (T[]) new Object[capacity];
+    
+    public Heap(Comparator<E> cmp, boolean isMax) {
+        elements = (E[])(new Object[capacity]);
+//        tree = new BinaryTree<E>(); 
         effectiveSize = 0;
-        isMax = b;
+        this.cmp = cmp;
+        this.isMax = isMax;
+//        this.setTree(createTree(0,this.getTree()));
+        
     }
-
-    public Comparator<T> getCmp() {
+    public Heap(Comparator<E> cmp,E[] elements, boolean isMax) {
+        this.elements = elements;
+//        tree = new BinaryTree<E>();
+        effectiveSize = elements.length;
+        this.cmp = cmp;
+        this.isMax = isMax;
+        this.makeHeap();
+    }
+    
+    private void addCapacity() {
+        E[] tmp = (E[]) new Object[capacity * 2];
+        for (int i = 0; i < capacity; i++) {
+            tmp[i] = elements[i];
+        }
+        elements = tmp;
+        capacity = capacity * 2;
+    }
+    
+    public Comparator<E> getCmp() {
         return cmp;
     }
 
-    public void setCmp(Comparator<T> cmp) {
-        this.cmp = cmp;
-    }
-    /*
-    public T getContent() {
-        return content;
-    }
+//    public BinaryTree<E> getTree() {
+//        return tree;
+//    }
+//
+//    public void setTree(BinaryTree<E> tree) {
+//        this.tree = tree;
+//    }
 
-    public void setContent(T content) {
-        this.content = content;
-    }
-*/
-    public T[] getArray() {
-        return array;
-    }
-
-    public void setArray(T[] array) {
-        this.array = array;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public int getEffectiveSize() {
+    public int size() {
         return effectiveSize;
     }
-
-    public void setEffectiveSize(int effectiveSize) {
-        this.effectiveSize = effectiveSize;
+    
+    public boolean isEmpty(){
+        return effectiveSize==0;
     }
-
-    public boolean isMax() {
-        return isMax;
-    }
-
-    public void setMax(boolean max) {
-        isMax = max;
-    }
-
-    public boolean isEmpty() {
-        return effectiveSize == 0;
-    }
-
-    public T getChild(int index) {
-        if (index > effectiveSize) return null;
-        return array[index];
-    }
-
-    public T getLeft(int i) {
-        return getChild(i*2 + 1);
-    }
-
-    public T getRight(int i) {
-        return getChild(i*2 + 2);
-    }
-
-    public T getFather(int i) {
-        if (i != 0) {
-            if (i > effectiveSize) return null;
-            return array[(i-1)/2];
+    
+    public static int factorial(int n){     
+        if(n == 0){
+            return 1;
         }
-        return null;
+        return (n*factorial(n-1));
     }
-    // Cambiar
-    public void imprimirArreglo() {
-        for (int i = 0; i < effectiveSize; i++) {
-            System.out.print(array[i] + ", ");
-        }
-        System.out.print("\n");
-        for (int i = 0; i < effectiveSize; i++) {
-            System.out.print(i + " ");
-        }
-        System.out.print("\n");
+    
+    public int posL(int i){
+        int i1 = (2*i)+1;
+        if(i1<effectiveSize){return i1;}
+        return -1;
     }
 
-    public void buildHeap() {
-        for (int i = (effectiveSize / 2) - 1; i >= 0; i--) {
-            fix(i);
-        }
+    public int posR(int i){
+        int i1 = (2*i)+2;
+        if(i1<effectiveSize){return i1;}
+        return -1;
     }
-    public void fix(int i) {
-        int maxIndex = i;
-        int Left = ((i * 2) + 1);
-        int Right = (i * 2 + 2);
-
-        if (Left >= 0 && Left < effectiveSize && cmp.compare(array[Left], array[i]) >= 0) {
-            maxIndex = Left;
-            if (Right >= 0 && Right < effectiveSize && cmp.compare(array[Right], array[maxIndex]) >= 0) {
-                maxIndex = Right;
-                if (maxIndex != i) {
-                    T tmp = array[maxIndex];
-                    array[maxIndex] = array[i];
-                    array[i] = tmp;
-                    fix(maxIndex);
+    
+    public int posParent(int i){return(i-1)/2;}
+    
+    public void intercambiar(int ip, int ic){
+        E parent = elements[ip];
+        E child = elements[ic];
+        elements[ip] = child;
+        elements[ic] = parent;
+    }
+    
+    public void adjustMax(int i){
+        if(i<=(effectiveSize-1) && posL(i)!=-1 && posR(i)!=-1){
+            E element = elements[i];
+            E elementR = elements[posR(i)];
+            E elementL = elements[posL(i)];
+            if(cmp.compare(element, elementR)<0){
+                if(cmp.compare(elementR, elementL)<0){
+                    intercambiar(i,posL(i));
+                    adjustMax(posL(i));
+                }else{
+                    intercambiar(i,posR(i));
+                    adjustMax(posR(i));
                 }
-            } else {
-                if (maxIndex != i) {
-                    T tmp = array[maxIndex];
-                    array[maxIndex] = array[i];
-                    array[i] = tmp;
-                    fix(maxIndex);
+            }else if(cmp.compare(element, elementL)<0){
+                if(cmp.compare(elementL, elementR)<0){
+                    intercambiar(i,posR(i));
+                    adjustMax(posR(i));
+                }else{
+                    intercambiar(i,posL(i));
+                    adjustMax(posL(i));
                 }
+            }    
+        }
+    }
+    
+    public void adjustMin(int i){
+        if(i<=(effectiveSize-1) && posL(i)!=-1 && posR(i)!=-1){
+            E element = elements[i];
+            E elementR = elements[posR(i)];
+            E elementL = elements[posL(i)];
+            if(cmp.compare(element, elementR)>0){
+                if(cmp.compare(elementR, elementL)>0){
+                    intercambiar(i,posL(i));
+                    adjustMin(posL(i));
+                }else{
+                    intercambiar(i,posR(i));
+                    adjustMin(posR(i));
+                }
+            }else if(cmp.compare(element, elementL)>0){
+                if(cmp.compare(elementL, elementR)>0){
+                    intercambiar(i,posR(i));
+                    adjustMin(posR(i));
+                }else{
+                    intercambiar(i,posL(i));
+                    adjustMin(posL(i));
+                }
+            }    
+        }
+    }
+        
+    public void adjust(int i){
+        if(this.isMax){ adjustMax(i);
+        }else{adjustMin(i);}
+    }
+    
+    public void insertMax(E element){
+        if(effectiveSize==capacity){this.addCapacity();}
+        if(effectiveSize!=0){
+            effectiveSize++;
+            int ic = effectiveSize-1;
+            elements[ic]=element;
+            int ip = posParent(ic);
+            while(this.cmp.compare(elements[ic], elements[ip])>0 && ip!=-1){
+                intercambiar(ip,ic);
+                ic = ip;
+                ip = posParent(ic);
             }
-        } else if (Right >= 0 && Right < effectiveSize && cmp.compare(array[Right], array[maxIndex]) >= 0) {
-            maxIndex = Right;
-            if (maxIndex != i) {
-                T tmp = array[maxIndex];
-                array[maxIndex] = array[i];
-                array[i] = tmp;
-                fix(maxIndex);
+//            this.setTree(createTree(0,this.getTree()));
+        }else if (effectiveSize==0){
+            elements[0]=element;
+            effectiveSize++;
+//            this.setTree(createTree(0,this.getTree()));
+        }
+    }
+
+    public void insertMin(E element){
+        if(effectiveSize==capacity){this.addCapacity();}
+        if(effectiveSize!=0){
+            effectiveSize++;
+            int ic = effectiveSize-1;
+            elements[ic]=element;
+            int ip = posParent(ic);
+            while(this.cmp.compare(elements[ic], elements[ip])<0 && ip!=-1){
+                intercambiar(ip,ic);
+                ic = ip;
+                ip = posParent(ic);
             }
+//            this.setTree(createTree(0,this.getTree()));
+        }else if (effectiveSize==0){
+            elements[0]=element;
+            effectiveSize++;
+//            this.setTree(createTree(0,this.getTree()));
         }
+    }    
+    
+    public void insert(E element){
+        if(this.isMax){ insertMax(element);
+        }else{insertMin(element);}
     }
-
-    public T remove() {
-        T maxValue = null;
-        if (!isEmpty()) {
-            maxValue = array[0];
-            array[0] = array[effectiveSize - 1];
-            effectiveSize--;
-            fix(0);
+    
+    public E remove(){
+        E element = elements[0];
+        intercambiar(0,effectiveSize-1);
+        elements[effectiveSize-1] = null;
+        effectiveSize--;
+        adjust(0);
+//        this.setTree(createTree(0,this.getTree()));
+        return element;
+    }
+    
+    public E get(int i){
+     return elements[i];
+    }
+    
+    public void makeHeap(){
+        for(int i=(effectiveSize/2)-1; i>=0; i--){adjust(i);}
+//        this.setTree(createTree(0,this.getTree()));
+    }
+    
+//    public BinaryTree<E> createTree(int i, BinaryTree<E> tree){
+//        if(elements[i]!=null){
+//            tree.setRoot(new BinaryNode(elements[i]));
+//            if(posR(i)!=-1){tree.setRight(createTree(posR(i), new BinaryTree<E>()));}
+//            if(posL(i)!=-1){tree.setLeft(createTree(posL(i), new BinaryTree<E>()));}
+//        }
+//        return tree;
+//    }
+    
+    public static void main(String[] args){
+        Comparator<Integer> cmp = (Integer i1, Integer i2)-> {return i1-i2;};
+        Heap<Integer> h = new Heap(cmp, false);
+        h.insert(-1);
+        h.insert(-2);
+        h.insert(2);
+        h.insert(1);
+        h.insert(1);
+        h.insert(0);
+        h.insert(1);
+        System.out.println("Prueba de desencolamiento");
+        while(!h.isEmpty()){
+            System.out.println("Elemento removido: "+h.remove());
+            System.out.println("////////");
         }
-        return maxValue;
-    }
-
-    private int insert(T t, int pos) {
-        fix(pos);
-        return indexFather(pos);
-    }
-
-    public void insert(T t) {
-        if (effectiveSize >= capacity) {
-            addCapacity();
-        }
-        array[effectiveSize] = t;
-        effectiveSize++;
-        int programa = indexFather(effectiveSize - 1);
-        while (programa > 0) {
-            programa = insert(t, programa);
-        }
-        programa = insert(t, programa);
-    }
-
-    public int indexFather(int i) {
-        return (i - 1) / 2;
-    }
-
-    private void addCapacityT() {
-        T[] tmp = (T[]) new Object[capacity * 2];
-        if (capacity >= 0) System.arraycopy(array, 0, tmp, 0, capacity);
-        array = tmp;
-        capacity = capacity * 2;
-    }
-    private void addCapacity() {
-        T[] tmp = (T[]) new Object[this.capacity * 2];
-        for (int i = 0; i < capacity; i++) {
-            tmp[i] = array[i];
-        }
-        array = tmp;
-        capacity = capacity * 2;
     }
 }

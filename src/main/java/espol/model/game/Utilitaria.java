@@ -4,13 +4,16 @@
  */
 package espol.model.game;
 
+import espol.model.tda.Heap;
 import espol.model.tda.Tree;
+//import espol.model.tda.Heap;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import espol.model.game.Board;
+import espol.model.tda.Heap;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import javafx.scene.image.Image;
@@ -179,21 +182,27 @@ public class Utilitaria {
        int max = 0;
        Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> {return i1.getUtility()-i2.getUtility();};
        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
+       Heap<Capsule> h = new Heap(cmp, false);
        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-           q.offer(tree1.getRoot().getContent());
+//           q.offer(tree1.getRoot().getContent());
+        h.insert(tree1.getRoot().getContent());
        }   
-       if(!q.isEmpty()){max = q.poll().getUtility();}
+//       if(!q.isEmpty()){max = q.poll().getUtility();}
+        if(!h.isEmpty()){max = h.remove().getUtility();} 
        return max;
    }
    
    public static Capsule getMaxN(Tree<Capsule> tree){
        Capsule c = new Capsule();
        Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i2.getMax()-i1.getMax();
+       Heap<Capsule> h = new Heap(cmp, false);
        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
        for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-           q.offer(tree1.getRoot().getContent());
+//           q.offer(tree1.getRoot().getContent());
+            h.insert(tree1.getRoot().getContent());
        }
-       if(!q.isEmpty()){c = q.poll();}       
+//       if(!q.isEmpty()){c = q.poll();}       
+        if(!h.isEmpty()){c= h.remove();}  
        return c;
    }
 }

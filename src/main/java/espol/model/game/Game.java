@@ -34,21 +34,24 @@ public class Game {
     }
 
     public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap) {;
-        for (int i = 0; i<3; i++) {
-            for (int j = 0; j<3; j++) {
-                if (!(mapJugad.get(i).get(j).getC().equals(currentMap.get(i).get(j).getC()))) board.markIn(currentMap.get(i).get(j).getPosition(), bot);
+        if(mapJugad!=null && currentMap!=null){
+            for (int i = 0; i<3; i++) {
+                for (int j = 0; j<3; j++) {
+                    if (!(mapJugad.get(i).get(j).getC().equals(currentMap.get(i).get(j).getC()))) board.markIn(currentMap.get(i).get(j).getPosition(), bot);
+                }
+            }
+            boolean b = checkGame(bot);
+            if (b) {
+                setWinner(bot);
+                setGameWon(b);
+                endGame(board.getMap());
+                if(isGameWon()) System.out.println("end game");
+            }
+            if(!isGameWon()){
+                board.refresh(board.getMap(),board.getMap1());
             }
         }
-        boolean b = checkGame(bot);
-        if (b) {
-            setWinner(bot);
-            setGameWon(b);
-            endGame(board.getMap());
-            if(isGameWon()) System.out.println("end game");
-        }
-        if(!isGameWon()){
-            board.refresh(board.getMap(),board.getMap1());
-        }
+        
     }
     public void time() {
         try {
