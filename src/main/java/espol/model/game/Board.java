@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 public class Board {
     private GridPane grid;
+    private GridPane grid1;
     private Character player;
     private Character bot;
     public static final Character EMPTY_CHAR = 'n';
@@ -21,10 +22,13 @@ public class Board {
     private final double SIZE = 360;
     private int utility;
     private TreeMap<Integer, ArrayList<Cell>> map = new TreeMap();
+    private TreeMap<Integer, ArrayList<Cell>> map1 = new TreeMap();
     private Tree<Capsule> currentTree;
+    private Tree<Capsule> recommendTree;
 
     public Board(Character p, Game g) {
         grid = new GridPane();
+        grid1 = new GridPane();
         gg = g;
         gg.setBoard(this);
         player = p;
@@ -44,10 +48,22 @@ public class Board {
             map.put(i,tmp);
         }
         setGridStyles(grid);
+        for (int i = 0; i<3; i++) {
+            ArrayList<Cell> tmp = new ArrayList();
+            for (int j = 0; j<3; j++) {
+                Cell cell = new Cell(new Pair(i, j), true);
+                cell.setImage(EMPTY);
+                cell.setFitHeight(80);
+                cell.setFitWidth(80);
+                tmp.add(cell);
+                grid1.add(cell, j, i);
+            }
+            map1.put(i,tmp);
+        }
         currentTree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
+        recommendTree = Utilitaria.createTree(map, player);
+        refresh(map,map1);
         if (!gg.isPlayerBegins()) gg.firstBotTurn(Utilitaria.getMaxN(currentTree).getMap());
-//        gg.printBoard(tree.getRoot().getContent().getMap());
-//        gg.printBoard(tree.getChild(0).getRoot().getContent().getMap());
     }
     
 
@@ -149,6 +165,26 @@ public class Board {
         }
         return true;
     }
+    
+    public void refresh(TreeMap<Integer, ArrayList<Cell>> map,TreeMap<Integer, ArrayList<Cell>> map1){
+        recommendTree = Utilitaria.createTree(map, player);
+        if(Utilitaria.getMaxN(recommendTree).getMap()!=null){
+            TreeMap<Integer, ArrayList<Cell>> tmp = cloneMap(Utilitaria.getMaxN(recommendTree).getMap());
+            for (int i = 0; i<3; i++) {
+                for (int j = 0; j<3; j++) {
+                    if (!(tmp.get(i).get(j).getC().equals(map1.get(i).get(j).getC()))) {
+                        Character c = tmp.get(i).get(j).getC();
+                        map1.get(i).get(j).setC(c);
+                        if (c.equals('X') || c.equals('O')) map1.get(i).get(j).setImage((c.equals('X') ? X:O));
+                        else map1.get(i).get(j).setImage(EMPTY);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
 
     public void setUtility(int u) { this.utility = u; }
     public int getUtility() { return utility; }
@@ -170,4 +206,24 @@ public class Board {
     public double getSIZE() { return SIZE;  }
     public TreeMap<Integer, ArrayList<Cell>> getMap() { return map; }
     public void setMap(TreeMap<Integer, ArrayList<Cell>> map) { this.map = map; }
+
+    public Tree<Capsule> getRecommendTree() {
+        return recommendTree;
+    }
+
+    public void setRecommendTree(Tree<Capsule> recommendTree) {
+        this.recommendTree = recommendTree;
+    }
+
+    public GridPane getGrid1() {
+        return grid1;
+    }
+
+    public void setGrid1(GridPane grid1) {
+        this.grid1 = grid1;
+    }
+
+    public TreeMap<Integer, ArrayList<Cell>> getMap1() {
+        return map1;
+    }
 }

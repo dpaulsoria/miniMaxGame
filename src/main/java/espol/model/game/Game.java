@@ -30,13 +30,10 @@ public class Game {
                 if (map.get(i).get(j).getC().equals(bot)) board.markIn(map.get(i).get(j).getPosition(), bot);
             }
         }
+        board.refresh(board.getMap(),board.getMap1());
     }
 
-    public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap) {
-        //miniMax nextMove = new miniMax(this.getBoard());
-        //this.getBoard().markIn(new Pair(nextMove.Row, nextMove.Col), bot);
-        //time();
-//        getBoard().markIn(position, bot);
+    public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap) {;
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
                 if (!(mapJugad.get(i).get(j).getC().equals(currentMap.get(i).get(j).getC()))) board.markIn(currentMap.get(i).get(j).getPosition(), bot);
@@ -48,6 +45,9 @@ public class Game {
             setGameWon(b);
             endGame(board.getMap());
             if(isGameWon()) System.out.println("end game");
+        }
+        if(!isGameWon()){
+            board.refresh(board.getMap(),board.getMap1());
         }
     }
     public void time() {

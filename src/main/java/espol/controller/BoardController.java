@@ -28,6 +28,7 @@ public class BoardController implements Initializable {
     private BorderPane root;
     @FXML
     private GridPane grid;
+    private GridPane grid1;
     private Game gg;
     private Board board;
     private Character player = 'n';
@@ -44,7 +45,9 @@ public class BoardController implements Initializable {
         grid = board.getGrid();
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
-        printMap(board.getMap());
+        grid1 = board.getGrid1();
+        grid1.setAlignment(Pos.CENTER);
+        vh.getChildren().add(grid1);
     }
     @FXML
     protected void newGame() {
@@ -86,19 +89,5 @@ public class BoardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
     
-    public void printMap(TreeMap<Integer, ArrayList<Cell>> map){
-        GridPane gp = new GridPane();
-        for(int i=0; i<3;i++){
-            for(int j=0; j<3;j++){
-                Cell tmp = map.get(i).get(j);
-                Cell tmpn = new Cell(tmp.getPosition(),true);
-                tmpn.setImage(tmp.getImage());
-                tmpn.setFitHeight(80);
-                tmpn.setFitWidth(80);
-                gp.add(tmpn, j, i);
-            }
-        }  
-        gp.setAlignment(Pos.CENTER);
-        vh.getChildren().add(gp);
-    }
+    
 }

@@ -36,7 +36,7 @@ public class Utilitaria {
 
 
     public static Tree<Capsule> createTree(TreeMap<Integer, ArrayList<Cell>> map, Character c){
-       Capsule cp = new Capsule(map, c.equals('X') ? 'O':'X');
+       Capsule cp = new Capsule(Board.cloneMap(map), c.equals('X') ? 'O':'X');
        Tree<Capsule> tmp = new Tree<>(cp);
        ArrayList<Pair> nulls = countNulls(map);
        if(!nulls.isEmpty()){
