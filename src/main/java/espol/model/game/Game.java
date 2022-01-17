@@ -1,5 +1,6 @@
 package espol.model.game;
 
+import espol.controller.HelloController;
 import espol.model.tda.Tree;
 import java.util.ArrayList;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class Game {
                 endGame(board.getMap());
                 if(isGameWon()) System.out.println("end game");
             }
-            if(!isGameWon()){
+            if (!isGameWon()) {
                 board.refresh(board.getMap(),board.getMap1());
             }
         }
@@ -209,7 +210,7 @@ public class Game {
         System.out.println(F2P.get(0)+" "+ F2P.get(1)+" "+ F2P.get(2));
     }
     
-    public void endGame( TreeMap<Integer, ArrayList<Cell>> map ){
+    public void endGame( TreeMap<Integer, ArrayList<Cell>> map){
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
                 if (!map.get(i).get(j).isSelected()) map.get(i).get(j).setSelected(true);

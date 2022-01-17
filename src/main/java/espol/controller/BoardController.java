@@ -1,9 +1,6 @@
 package espol.controller;
 
-import espol.model.game.Board;
-import espol.model.game.Cell;
-import espol.model.game.Game;
-import espol.model.game.miniMax;
+import espol.model.game.*;
 import espol.startGame.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

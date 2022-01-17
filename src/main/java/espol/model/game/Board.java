@@ -1,5 +1,6 @@
 package espol.model.game;
 
+import espol.controller.HelloController;
 import espol.model.tda.Tree;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -96,6 +97,7 @@ public class Board {
                 if (!checkBoardFull()) gg.botTurn(miniMax.getMaxN(currentTree).getMap(), map);
             }
         }
+        checkEmpate();
     }
 
     public void markIn(Pair position, Character c) {
@@ -105,13 +107,19 @@ public class Board {
         else map.get(position.x).get(position.y).setImage(EMPTY);
     }
 
+    public void checkEmpate() {
+        if (gg.checkIfBotWin()) HelloController.alert("Gana el BOT!", "INFORMATION");
+        else if (gg.checkIfPlayerWin()) HelloController.alert("Usted gana!", "INFORMATION");
+        else if (checkBoardFull() && !gg.checkIfPlayerWin() && !gg.checkIfBotWin()) HelloController.alert("EMPATE!", "INFORMATION");
+    }
+
     public void clear() { grid.getChildren().clear(); }
 
     public boolean checkBoardFull() {
         int c = 0;
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<3; j++) {
-                if (map.get(i).get(j).getC().equals('n')) c++;
+                if (!map.get(i).get(j).getC().equals(EMPTY_CHAR)) c++;
                 if (c == 9) return true;
             }
         }

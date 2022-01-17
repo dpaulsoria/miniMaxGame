@@ -127,7 +127,7 @@ public class HelloController implements Initializable {
     }
     private void setPlayerMark(Character opt) { this.playerMark = opt; }
     private void setPlayerBegins(boolean opt) { this.playerBegins = opt; }
-    private void alert(String msg, String mode) {
+    public static void alert(String msg, String mode) {
         Alert a;
         switch (mode) {
             case "ERROR": a = new Alert(Alert.AlertType.ERROR, msg); break;
