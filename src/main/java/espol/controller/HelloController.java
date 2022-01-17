@@ -54,12 +54,15 @@ public class HelloController implements Initializable {
         playerBegins = false;
         botRadioButton.setSelected(true);
         modeCheckBox.setSelected(false);
+        mode1RadioButton.setVisible(false);
+        mode2RadioButton.setVisible(false);
     }
     @FXML
     protected void startGame() {
         if (!validateGame()) return;
         System.out.println("Begins: " + (playerBegins ? "Player":"Bot"));
         System.out.println("Player Mark: " + playerMark);
+        System.out.println("Modo de juego: " + getMode());
         Game game = new Game(playerMark, playerBegins, getMode());
         try {
             FXMLLoader fxml = App.loadFXMLLoad("board");
@@ -67,7 +70,7 @@ public class HelloController implements Initializable {
             BoardController bc = fxml.getController();
             bc.setGame(game);
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
     }
     private int getMode() {
