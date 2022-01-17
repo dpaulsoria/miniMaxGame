@@ -127,7 +127,12 @@ public class miniMax {
     public static void setUtilities(Tree<Capsule> tree){
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
             for(Tree<Capsule> tree2:tree1.getRoot().getChildren()){
-                tree2.getRoot().getContent().setUtility(utilityFunction(tree2.getRoot().getContent().getMap(), tree2.getRoot().getContent().getC().equals('X') ? 'O':'X'));
+                if(checkGame(tree2.getRoot().getContent().getC(),tree2.getRoot().getContent().getMap())){
+                    tree2.getRoot().getContent().setUtility(-10);
+                    System.out.println(-10);
+                }else{
+                    tree2.getRoot().getContent().setUtility(utilityFunction(tree2.getRoot().getContent().getMap(), tree2.getRoot().getContent().getC().equals('X') ? 'O':'X'));
+                }
             }
         }
     }
@@ -183,8 +188,13 @@ public class miniMax {
 
     public static void setMax(Tree<Capsule> tree){
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-            tree1.getRoot().getContent().setMax(getMaxT(tree1));
-            printBoard(tree1.getRoot().getContent().getMap());
+            if(checkGame(tree1.getRoot().getContent().getC(),tree1.getRoot().getContent().getMap())){
+                tree1.getRoot().getContent().setMax(10);
+                System.out.println(10);
+            }else{
+                tree1.getRoot().getContent().setMax(getMaxT(tree1));
+            }
+//            printBoard(tree1.getRoot().getContent().getMap());
         }
     }
 
@@ -194,8 +204,13 @@ public class miniMax {
         PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
         Heap<Capsule> h = new Heap(cmp, false);
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-//           q.offer(tree1.getRoot().getContent());
+           if(tree1.getRoot().getContent().getUtility()==-10){
+               max=-10;
+               return max;
+           }else{
+//               q.offer(tree1.getRoot().getContent());
             h.insert(tree1.getRoot().getContent());
+           }
         }
 //       if(!q.isEmpty()){max = q.poll().getUtility();}
         if(!h.isEmpty()){max = h.remove().getUtility();}
@@ -204,15 +219,53 @@ public class miniMax {
 
     public static Capsule getMaxN(Tree<Capsule> tree){
         Capsule c = new Capsule();
-        Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i2.getMax()-i1.getMax();
-        //Heap<Capsule> h = new Heap(cmp, true);
+        Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i1.getMax()-i2.getMax();
+        Heap<Capsule> h = new Heap(cmp, true);
         PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-           q.offer(tree1.getRoot().getContent());
-           //h.insert(tree1.getRoot().getContent());
+           if(tree1.getRoot().getContent().getMax()==10){
+               c = tree1.getRoot().getContent();
+               return c;
+           }else{
+//            q.offer(tree1.getRoot().getContent());
+           h.insert(tree1.getRoot().getContent());
+           }
         }
-        if(!q.isEmpty()){c = q.poll();}
-        //if(!h.isEmpty()){c= h.remove();}
+//        if(!q.isEmpty()){c = q.poll();}
+        if(!h.isEmpty()){c= h.remove();}
         return c;
+    }
+    
+        public static boolean checkGame(Character c, TreeMap<Integer, ArrayList<Cell>> tablero){
+        ArrayList<Cell> F0 = tablero.get(0);
+        ArrayList<Cell> F1 = tablero.get(1);
+        ArrayList<Cell> F2 = tablero.get(2);
+        //columnas
+        for(int i=0;i<F0.size();i++){
+            if((F0.get(i).getC()==c) && (F1.get(i).getC()==c) && (F2.get(i).getC()==c)){
+                return true;
+            }
+        }
+        //filas
+        int tmp=0;
+        for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
+            tmp=0;
+            ArrayList<Cell> array=par.getValue();
+            for(int i=0;i<array.size();i++){
+                if(array.get(i).getC()==c)
+                    tmp++;
+            }
+            if(tmp==3){
+                return true;
+            }
+        }
+        //diagonales
+        if((F0.get(0).getC()==c ) && (F1.get(1).getC()==c) && (F2.get(2).getC()==c)){
+            return true;
+        }
+        else if((F0.get(2).getC()==c ) && (F1.get(1).getC()==c ) && (F2.get(0).getC()==c)){
+            return true;
+        }
+        return false;
     }
 }
