@@ -11,7 +11,6 @@ public class Game {
     private Character bot;
     private boolean playerBegins;
     private Board board;
-    private Tree<Character> miniMax;
     private boolean botTurn;
     private boolean gameWon = false;
     private Character winner = 'n';
@@ -20,6 +19,7 @@ public class Game {
     private boolean modeNormal;
     private boolean mode1v1;
     private boolean modebotvbot;
+    private boolean botMarkActiveMode0 = false;
 
     // -1 == Normal Mode
     // 0 == 1 vs 1
@@ -43,6 +43,24 @@ public class Game {
         }
     }
 
+    public void nextBotTurn() {
+        board.setCurrentTree(miniMax.createTree(board.getMap(), isPlayerBegins() ? player:bot));
+        board.setRecommendTree(miniMax.createTree(board.getMap(), player));
+        board.refresh(board.getMap(), board.getMap1());
+        if (!isPlayerBegins()) {
+            Character currentMark = EMPTY_CHAR;
+            if (botMarkActiveMode0)  {
+                currentMark = bot;
+                botMarkActiveMode0 = false;
+            } else {
+                currentMark = player;
+                botMarkActiveMode0 = true;
+            }
+            botTurn(miniMax.getMaxN(board.getCurrentTree()).getMap(), board.getMap(), currentMark);
+            //currentMarkBotvsBot = bot;
+        }
+    }
+
     public void firstBotTurn(TreeMap<Integer, ArrayList<Cell>> map) {
         printBoard(map);
         for (int i = 0; i<3; i++) {
@@ -53,16 +71,16 @@ public class Game {
         board.refresh(board.getMap(),board.getMap1());
     }
 
-    public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap) {;
+    public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap, Character c) {
         if(mapJugad!=null && currentMap!=null){
             for (int i = 0; i<3; i++) {
                 for (int j = 0; j<3; j++) {
-                    if (!(mapJugad.get(i).get(j).getC().equals(currentMap.get(i).get(j).getC()))) board.markIn(currentMap.get(i).get(j).getPosition(), bot);
+                    if (!(mapJugad.get(i).get(j).getC().equals(currentMap.get(i).get(j).getC()))) board.markIn(currentMap.get(i).get(j).getPosition(), c);
                 }
             }
-            boolean b = checkGame(bot);
+            boolean b = checkGame(c);
             if (b) {
-                setWinner(bot);
+                setWinner(c);
                 setGameWon(b);
                 endGame(board.getMap());
                 if(isGameWon()) System.out.println("end game");
@@ -71,7 +89,7 @@ public class Game {
                 board.refresh(board.getMap(),board.getMap1());
             }
         }
-        
+
     }
     public void time() {
         try {
@@ -230,8 +248,6 @@ public class Game {
     public void setPlayerBegins(boolean playerBegins) { this.playerBegins = playerBegins; }
     public Board getBoard() { return board; }
     public void setBoard(Board board) { this.board = board; }
-    public Tree<Character> getMiniMax() { return miniMax; }
-    public void setMiniMax(Tree<Character> miniMax) { this.miniMax = miniMax; }
     public boolean isBotTurn() { return botTurn; }
     public void setBotTurn(boolean botTurn) { this.botTurn = botTurn; }
     public boolean isGameWon() { return gameWon; }

@@ -25,14 +25,14 @@ public class BoardController implements Initializable {
     private BorderPane root;
     @FXML
     private GridPane grid;
+    @FXML
+    private Button nextTurnButton;
     private GridPane grid1;
     private Game gg;
     private Board board;
     private Character player = 'n';
     @FXML
     private VBox vh;
-    @FXML
-    private Button newGameButton;
 
     public void setGame(Game g) {
         gg = g;
@@ -45,22 +45,13 @@ public class BoardController implements Initializable {
         grid1 = board.getGrid1();
         grid1.setAlignment(Pos.CENTER);
         vh.getChildren().add(grid1);
+        nextTurnButton.setVisible(gg.getMode() != -1);
     }
     @FXML
-    protected void newGame() {
-        ArrayList<TreeMap<Integer, ArrayList<Cell>>> tmp = miniMax.getNextMoves(board.getMap(), player);
-        System.out.println("New Game " + tmp.size());
-        for (int i = 0; i<tmp.size(); i++) {
-            TreeMap<Integer, ArrayList<Cell>> map = tmp.get(i);
-            map.forEach((k, v) -> {
-                System.out.println("Clave: " + k);
-                v.forEach((v1) -> {
-                    System.out.println("    " + v1);
-                });
-            });
-            System.out.println();
-        }
+    protected void nextTurn() {
+        if (gg.getMode() == 1) gg.nextBotTurn();
     }
+
     protected void clearTable() { board.clear(); }
     @FXML
     protected void giveUp() {
@@ -84,7 +75,5 @@ public class BoardController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { }
-    
-    
+    public void initialize(URL url, ResourceBundle resourceBundle) {  }
 }

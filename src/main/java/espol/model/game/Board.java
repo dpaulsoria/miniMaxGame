@@ -94,7 +94,7 @@ public class Board {
             if(gg.isGameWon()) System.out.println("end game");
             if(!gg.isGameWon()){
                 currentTree = miniMax.createTree(map, gg.isPlayerBegins() ? player:bot);
-                if (!checkBoardFull()) gg.botTurn(miniMax.getMaxN(currentTree).getMap(), map);
+                if (!checkBoardFull()) gg.botTurn(miniMax.getMaxN(currentTree).getMap(), map, bot);
             }
         }
         checkEmpate();
@@ -108,8 +108,8 @@ public class Board {
     }
 
     public void checkEmpate() {
-        if (gg.checkIfBotWin()) HelloController.alert("Gana el BOT!", "INFORMATION");
-        else if (gg.checkIfPlayerWin()) HelloController.alert("Usted gana!", "INFORMATION");
+        if (gg.checkIfBotWin()) HelloController.alert("Ganan las " + bot + "!", "INFORMATION");
+        else if (gg.checkIfPlayerWin()) HelloController.alert("Ganan las " + player + "!", "INFORMATION");
         else if (checkBoardFull() && !gg.checkIfPlayerWin() && !gg.checkIfBotWin()) HelloController.alert("EMPATE!", "INFORMATION");
     }
 
@@ -231,4 +231,7 @@ public class Board {
     public TreeMap<Integer, ArrayList<Cell>> getMap1() {
         return map1;
     }
+
+    public void setCurrentTree(Tree<Capsule> t) { currentTree = t; }
+    public Tree<Capsule> getCurrentTree() { return currentTree; }
 }
