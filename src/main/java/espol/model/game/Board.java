@@ -60,10 +60,10 @@ public class Board {
             }
             map1.put(i,tmp);
         }
-        currentTree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
-        recommendTree = Utilitaria.createTree(map, player);
+        currentTree = miniMax.createTree(map, gg.isPlayerBegins() ? player:bot);
+        recommendTree = miniMax.createTree(map, player);
         refresh(map,map1);
-        if (!gg.isPlayerBegins()) gg.firstBotTurn(Utilitaria.getMaxN(currentTree).getMap());
+        if (!gg.isPlayerBegins()) gg.firstBotTurn(miniMax.getMaxN(currentTree).getMap());
     }
     
 
@@ -92,8 +92,8 @@ public class Board {
             }
             if(gg.isGameWon()) System.out.println("end game");
             if(!gg.isGameWon()){
-                currentTree = Utilitaria.createTree(map, gg.isPlayerBegins() ? player:bot);
-                if (!checkBoardFull()) gg.botTurn(Utilitaria.getMaxN(currentTree).getMap(), map);
+                currentTree = miniMax.createTree(map, gg.isPlayerBegins() ? player:bot);
+                if (!checkBoardFull()) gg.botTurn(miniMax.getMaxN(currentTree).getMap(), map);
             }
         }
     }
@@ -167,9 +167,9 @@ public class Board {
     }
     
     public void refresh(TreeMap<Integer, ArrayList<Cell>> map,TreeMap<Integer, ArrayList<Cell>> map1){
-        recommendTree = Utilitaria.createTree(map, player);
-        if(Utilitaria.getMaxN(recommendTree).getMap()!=null){
-            TreeMap<Integer, ArrayList<Cell>> tmp = cloneMap(Utilitaria.getMaxN(recommendTree).getMap());
+        recommendTree = miniMax.createTree(map, player);
+        if(miniMax.getMaxN(recommendTree).getMap()!=null){
+            TreeMap<Integer, ArrayList<Cell>> tmp = cloneMap(miniMax.getMaxN(recommendTree).getMap());
             for (int i = 0; i<3; i++) {
                 for (int j = 0; j<3; j++) {
                     if (!(tmp.get(i).get(j).getC().equals(map1.get(i).get(j).getC()))) {
@@ -182,9 +182,6 @@ public class Board {
             }
         }
     }
-    
-    
-    
 
     public void setUtility(int u) { this.utility = u; }
     public int getUtility() { return utility; }
