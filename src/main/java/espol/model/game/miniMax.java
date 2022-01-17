@@ -205,14 +205,14 @@ public class miniMax {
     public static Capsule getMaxN(Tree<Capsule> tree){
         Capsule c = new Capsule();
         Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i2.getMax()-i1.getMax();
-        Heap<Capsule> h = new Heap(cmp, false);
+        //Heap<Capsule> h = new Heap(cmp, false);
         PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
-//           q.offer(tree1.getRoot().getContent());
-            h.insert(tree1.getRoot().getContent());
+           q.offer(tree1.getRoot().getContent());
+//            h.insert(tree1.getRoot().getContent());
         }
-//       if(!q.isEmpty()){c = q.poll();}
-        if(!h.isEmpty()){c= h.remove();}
+       if(!q.isEmpty()){c = q.poll();}
+//        if(!h.isEmpty()){c= h.remove();}
         return c;
     }
 }
