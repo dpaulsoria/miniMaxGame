@@ -16,8 +16,8 @@ import java.io.IOException;
 public class App extends Application {
     private static Scene scene;
     private static Stage stage;
-    public static final double height = 300;
-    public static final double width = 410;
+    public static final double height = 410;
+    public static final double width = 450;
 
     @Override
     public void start(Stage stg) throws IOException {

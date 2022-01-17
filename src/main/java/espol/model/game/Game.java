@@ -16,11 +16,30 @@ public class Game {
     private Character winner = 'n';
     private Character EMPTY_CHAR = Board.EMPTY_CHAR;
     private boolean playerTurn = false;
+    private boolean modeNormal;
+    private boolean mode1v1;
+    private boolean modebotvbot;
 
-    public Game(Character opt, boolean ifPlayerBegins) {
+    // -1 == Normal Mode
+    // 0 == 1 vs 1
+    // 1 == Bot vs Bot
+    public Game(Character opt, boolean ifPlayerBegins, int mode) {
         player = opt;
         bot = (player.equals('X') ? 'O':'X');
         playerBegins = ifPlayerBegins;
+        if (mode == -1) {
+            modeNormal = true;
+            mode1v1 = false;
+            modebotvbot = false;
+        } else if (mode == 0) {
+            modeNormal = false;
+            mode1v1 = true;
+            modebotvbot = false;
+        } else if (mode == 1) {
+            modeNormal = false;
+            mode1v1 = false;
+            modebotvbot = true;
+        }
     }
 
     public void firstBotTurn(TreeMap<Integer, ArrayList<Cell>> map) {
@@ -110,7 +129,7 @@ public class Game {
     }
 
     public static Game cloneGG(Game gg) {
-        return new Game(gg.player, gg.isPlayerBegins());
+        return new Game(gg.player, gg.isPlayerBegins(), gg.getMode());
     }
     public boolean checkIfBotWin() { return checkGame(bot); }
     public boolean checkIfPlayerWin() { return checkGame(player); }
@@ -218,4 +237,10 @@ public class Game {
     public void setGameWon(boolean gameWon) { this.gameWon = gameWon; }
     public Character getWinner() { return winner; }
     public void setWinner(Character winner) { this.gameWon = true; this.winner = winner; }
+    public int getMode() {
+        if (modeNormal) return -1;
+        else if (mode1v1) return 0;
+        else if (modebotvbot) return 1;
+        else return Integer.MIN_VALUE;
+    }
 }
