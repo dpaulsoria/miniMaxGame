@@ -61,11 +61,11 @@ public class miniMax {
                 Capsule cp1 = new Capsule(map1, c);
                 Tree<Capsule> tmp1 = new Tree<>(cp1);
                 tmp.addChild(tmp1);
-                ArrayList<Pair> nullsc = countNulls(map1);
+                ArrayList<Pair> tmpNulls = countNulls(map1);
 //               System.out.println("Hijo "+i);
 //               printBoard(map1);
-                for(int j=0; j<nullsc.size(); j++ ){
-                    Pair position1 = nullsc.get(j);
+                for(int j=0; j<tmpNulls.size(); j++ ){
+                    Pair position1 = tmpNulls.get(j);
                     TreeMap<Integer, ArrayList<Cell>> map2 = Board.cloneMap(map1);
                     map2.get(position1.x).get(position1.y).setC(c.equals('X') ? 'O':'X');
                     map2.get(position1.x).get(position1.y).setSelected(true);
