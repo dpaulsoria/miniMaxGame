@@ -35,8 +35,6 @@ public class HelloController implements Initializable {
     @FXML
     private CheckBox modeCheckBox;
     @FXML
-    private RadioButton mode1RadioButton;
-    @FXML
     private RadioButton mode2RadioButton;
 
     private Character playerMark;
@@ -54,7 +52,6 @@ public class HelloController implements Initializable {
         playerBegins = false;
         botRadioButton.setSelected(true);
         modeCheckBox.setSelected(false);
-        mode1RadioButton.setVisible(false);
         mode2RadioButton.setVisible(false);
     }
     @FXML
@@ -75,7 +72,6 @@ public class HelloController implements Initializable {
     }
     private int getMode() {
         if (!modeCheckBox.isSelected()) return -1;
-        else if (mode1RadioButton.isSelected()) return 0;
         else if (mode2RadioButton.isSelected()) return 1;
         else return Integer.MIN_VALUE;
     }
@@ -109,22 +105,13 @@ public class HelloController implements Initializable {
     }
     @FXML
     protected void setMode() {
-        if (modeCheckBox.isSelected()) { mode1RadioButton.setVisible(true); mode2RadioButton.setVisible(true); }
+        if (modeCheckBox.isSelected()) { mode2RadioButton.setVisible(true); }
         else {
-            mode1RadioButton.setVisible(false); mode2RadioButton.setVisible(false);
-            mode1RadioButton.setSelected(false); mode2RadioButton.setSelected(false);
+            mode2RadioButton.setVisible(false);
+            mode2RadioButton.setSelected(false);
         }
     }
-    @FXML
-    protected void setMode1RadioButton() {
-        if (!mode1RadioButton.isSelected()) { mode1RadioButton.setSelected(true); mode2RadioButton.setSelected(false); }
-        else if (mode2RadioButton.isSelected()) { mode2RadioButton.setSelected(false); mode1RadioButton.setSelected(true); }
-    }
-    @FXML
-    protected void setMode2RadioButton() {
-        if (!mode2RadioButton.isSelected()) { mode2RadioButton.setSelected(true); mode1RadioButton.setSelected(false); }
-        else if (mode1RadioButton.isSelected()) { mode1RadioButton.setSelected(false); mode2RadioButton.setSelected(true); }
-    }
+
     private void setPlayerMark(Character opt) { this.playerMark = opt; }
     private void setPlayerBegins(boolean opt) { this.playerBegins = opt; }
     public static void alert(String msg, String mode) {

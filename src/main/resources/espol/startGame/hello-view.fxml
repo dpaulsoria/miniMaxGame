@@ -94,18 +94,10 @@
                      </CheckBox>
                   </children>
                </StackPane>
-               <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                  <children>
-                     <RadioButton fx:id="mode1RadioButton" mnemonicParsing="false" onAction="#setMode1RadioButton" text="1 vs 1">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </RadioButton>
-                  </children>
-               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                   <children>
-                     <RadioButton fx:id="mode2RadioButton" mnemonicParsing="false" onAction="#setMode2RadioButton" text="Bot vs Bot">
+                     <RadioButton fx:id="mode2RadioButton" mnemonicParsing="false" text="Bot vs Bot">
                         <font>
                            <Font size="14.0" />
                         </font>

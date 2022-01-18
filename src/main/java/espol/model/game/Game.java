@@ -46,7 +46,6 @@ public class Game {
     public void nextBotTurn() {
         board.setCurrentTree(miniMax.createTree(board.getMap(), isPlayerBegins() ? player:bot));
         board.setRecommendTree(miniMax.createTree(board.getMap(), player));
-        board.refresh(board.getMap(), board.getMap1());
         if (!isPlayerBegins()) {
             Character currentMark = EMPTY_CHAR;
             if (botMarkActiveMode0)  {
@@ -57,6 +56,7 @@ public class Game {
                 botMarkActiveMode0 = true;
             }
             botTurn(miniMax.getMaxN(board.getCurrentTree()).getMap(), board.getMap(), currentMark);
+            board.refresh(board.getMap(), board.getMap1(), currentMark.equals('X') ? 'O':'X');
             //currentMarkBotvsBot = bot;
         }
     }
@@ -68,7 +68,8 @@ public class Game {
                 if (map.get(i).get(j).getC().equals(bot)) board.markIn(map.get(i).get(j).getPosition(), bot);
             }
         }
-        board.refresh(board.getMap(),board.getMap1());
+        if (getMode() == 1) board.refresh(board.getMap(),board.getMap1(), playerBegins ? bot:player);
+        else board.refresh(board.getMap(),board.getMap1(), player);
     }
 
     public void botTurn(TreeMap<Integer, ArrayList<Cell>> mapJugad, TreeMap<Integer, ArrayList<Cell>> currentMap, Character c) {
@@ -86,7 +87,8 @@ public class Game {
                 if(isGameWon()) System.out.println("end game");
             }
             if (!isGameWon()) {
-                board.refresh(board.getMap(),board.getMap1());
+                if (getMode() == 1) board.refresh(board.getMap(),board.getMap1(), playerBegins ? bot:player);
+                else board.refresh(board.getMap(),board.getMap1(), player);
             }
         }
 

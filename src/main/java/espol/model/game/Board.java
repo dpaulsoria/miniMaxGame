@@ -40,9 +40,11 @@ public class Board {
                 Cell cell = new Cell(new Pair(i, j), false);
                 cell.setImage(EMPTY);
                 tmp.add(cell);
-                cell.setOnMouseClicked(e -> {
-                    cellClicked(cell, map);
-                });
+                if (gg.getMode() == -1) {
+                    cell.setOnMouseClicked(e -> {
+                        cellClicked(cell, map);
+                    });
+                }
                 cell.setStyle(borderStyles);
                 grid.add(cell, j, i);
             }
@@ -63,7 +65,8 @@ public class Board {
         }
         currentTree = miniMax.createTree(map, gg.isPlayerBegins() ? player:bot);
         recommendTree = miniMax.createTree(map, player);
-        refresh(map,map1);
+        if (gg.getMode() == 1) refresh(map, map1, gg.isPlayerBegins() ? bot:player);
+        else refresh(map, map1, player);
         if (!gg.isPlayerBegins()) gg.firstBotTurn(miniMax.getMaxN(currentTree).getMap());
     }
     
@@ -174,8 +177,8 @@ public class Board {
         return true;
     }
     
-    public void refresh(TreeMap<Integer, ArrayList<Cell>> map,TreeMap<Integer, ArrayList<Cell>> map1){
-        recommendTree = miniMax.createTree(map, player);
+    public void refresh(TreeMap<Integer, ArrayList<Cell>> map,TreeMap<Integer, ArrayList<Cell>> map1, Character c1){
+        recommendTree = miniMax.createTree(map, c1);
         if(miniMax.getMaxN(recommendTree).getMap()!=null){
             TreeMap<Integer, ArrayList<Cell>> tmp = cloneMap(miniMax.getMaxN(recommendTree).getMap());
             for (int i = 0; i<3; i++) {
