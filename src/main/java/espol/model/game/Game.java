@@ -90,6 +90,7 @@ public class Game {
                 else board.refresh(board.getMap(),board.getMap1(), player);
             }
         }
+        board.checkEmpate();
 
     }
     public void time() {
