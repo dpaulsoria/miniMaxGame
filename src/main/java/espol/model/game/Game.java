@@ -57,7 +57,6 @@ public class Game {
             }
             botTurn(miniMax.getMaxN(board.getCurrentTree()).getMap(), board.getMap(), currentMark);
             board.refresh(board.getMap(), board.getMap1(), currentMark.equals('X') ? 'O':'X');
-            //currentMarkBotvsBot = bot;
         }
     }
 

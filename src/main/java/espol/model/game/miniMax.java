@@ -62,8 +62,9 @@ public class miniMax {
                 Tree<Capsule> tmp1 = new Tree<>(cp1);
                 tmp.addChild(tmp1);
                 ArrayList<Pair> tmpNulls = countNulls(map1);
-//               System.out.println("Hijo "+i);
-//               printBoard(map1);
+               System.out.println("Hijo "+i);
+               printBoard(map1);
+               System.out.println("--------------------------------------");
                 for(int j=0; j<tmpNulls.size(); j++ ){
                     Pair position1 = tmpNulls.get(j);
                     TreeMap<Integer, ArrayList<Cell>> map2 = Board.cloneMap(map1);
@@ -72,8 +73,9 @@ public class miniMax {
                     Capsule cp2 = new Capsule(map2, c.equals('X') ? 'O':'X');
                     Tree<Capsule> tmp2 = new Tree<>(cp2);
                     tmp1.addChild(tmp2);
-//                   System.out.println("Nieto "+j);
-//                   printBoard(map2);
+                   System.out.println("Nieto "+j);
+                   printBoard(map2);
+                   System.out.println("--------------------------------------");
                 }
             }
         }
@@ -129,7 +131,6 @@ public class miniMax {
             for(Tree<Capsule> tree2:tree1.getRoot().getChildren()){
                 if(checkGame(tree2.getRoot().getContent().getC(),tree2.getRoot().getContent().getMap())){
                     tree2.getRoot().getContent().setUtility(-10);
-                    System.out.println(-10);
                 }else{
                     tree2.getRoot().getContent().setUtility(utilityFunction(tree2.getRoot().getContent().getMap(), tree2.getRoot().getContent().getC().equals('X') ? 'O':'X'));
                 }
@@ -139,9 +140,7 @@ public class miniMax {
 
     public static int utilityFunction(TreeMap<Integer, ArrayList<Cell>> tablero, Character c){
         int pPlayer=p(tablero,c);
-//        System.out.println(">" + c + ":" + pPlayer);
         int pBot=p(tablero,c.equals('X') ? 'O':'X');
-//        System.out.println(">" + (c.equals('X') ? 'O':'X') + ":" + pBot);
         return pPlayer-pBot;
     }
 
@@ -159,7 +158,6 @@ public class miniMax {
                 columnas++;
             }
         }
-//        System.out.println("    " + columnas);
         //filas
         int tmp=0;
         for(Map.Entry<Integer, ArrayList<Cell>> par: tablero.entrySet()){  //comprobar si el caracter es el mismo o está vacío
@@ -173,7 +171,6 @@ public class miniMax {
                 filas++;
             }
         }
-//        System.out.println("    " + filas);
         //diagonales
         if((F0.get(0).getC()==c || F0.get(0).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(2).getC()==c || F2.get(2).getC()=='n')){
             diagonales++;
@@ -181,7 +178,6 @@ public class miniMax {
         if((F0.get(2).getC()==c || F0.get(2).getC()=='n') && (F1.get(1).getC()==c || F1.get(1).getC()=='n') && (F2.get(0).getC()==c || F2.get(0).getC()=='n')){
             diagonales++;
         }
-//        System.out.println("    " + diagonales);
         utilP=filas+columnas+diagonales;
         return utilP;
     }
@@ -190,29 +186,24 @@ public class miniMax {
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
             if(checkGame(tree1.getRoot().getContent().getC(),tree1.getRoot().getContent().getMap())){
                 tree1.getRoot().getContent().setMax(10);
-                System.out.println(10);
             }else{
                 tree1.getRoot().getContent().setMax(getMaxT(tree1));
             }
-//            printBoard(tree1.getRoot().getContent().getMap());
         }
     }
 
     public static int getMaxT(Tree<Capsule> tree){
         int max = 0;
         Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> {return i1.getUtility()-i2.getUtility();};
-        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
         Heap<Capsule> h = new Heap(cmp, false);
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
            if(tree1.getRoot().getContent().getUtility()==-10){
                max=-10;
                return max;
            }else{
-//               q.offer(tree1.getRoot().getContent());
-            h.insert(tree1.getRoot().getContent());
+                h.insert(tree1.getRoot().getContent());
            }
         }
-//       if(!q.isEmpty()){max = q.poll().getUtility();}
         if(!h.isEmpty()){max = h.remove().getUtility();}
         return max;
     }
@@ -221,17 +212,14 @@ public class miniMax {
         Capsule c = new Capsule();
         Comparator<Capsule> cmp = (Capsule i1, Capsule i2)-> i1.getMax()-i2.getMax();
         Heap<Capsule> h = new Heap(cmp, true);
-        PriorityQueue<Capsule> q = new PriorityQueue<>(cmp);
         for(Tree<Capsule> tree1:tree.getRoot().getChildren()){
            if(tree1.getRoot().getContent().getMax()==10){
                c = tree1.getRoot().getContent();
                return c;
            }else{
-//            q.offer(tree1.getRoot().getContent());
-           h.insert(tree1.getRoot().getContent());
+               h.insert(tree1.getRoot().getContent());
            }
         }
-//        if(!q.isEmpty()){c = q.poll();}
         if(!h.isEmpty()){c= h.remove();}
         return c;
     }
