@@ -12,7 +12,7 @@ Bienvenidos al proyecto de Estructuras de Datos, donde hemos desarrollado una em
 - **Diseño Intuitivo:** La interfaz del juego es sencilla y fácil de usar, ofreciendo una experiencia de usuario fluida.
 
 ## Imágenes del Juego
-Aquí puedes ver algunas capturas de pantalla de nuestro juego en acción:
+Aquí puedes ver algunas capturas de pantalla de nuestro juego en acción:  
 ![image](https://github.com/dpaulsoria/tictactoe/assets/72895299/353a8e69-9301-46e2-976d-b938e9cf91dd)
 ![image](https://github.com/dpaulsoria/tictactoe/assets/72895299/4f6c86b0-9e7e-4d30-a907-b24d11122ed9)
 
